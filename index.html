@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Sala de Prensa - La voz del pueblo. Actualidad, política, deportes y cultura." />
+    <title>Sala de Prensa | La voz del pueblo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <header class="site-header" id="inicio">
+      <div class="utility-bar">
+        <p>MIÉRCOLES, 17 DE SEPTIEMBRE DE 2026</p>
+        <a href="#contacto">Publicitá con nosotros</a>
+      </div>
+
+      <div class="brand-row container">
+        <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <a class="brand" href="#inicio" aria-label="Sala de Prensa, inicio">
+          <img src="assets/sala-de-prensa-logo.jpeg" alt="Sala de Prensa, La voz del pueblo" />
+        </a>
+        <div class="header-tools">
+          <div class="weather-slot" aria-live="polite">
+            <span class="weather-kicker">CLIMA GBA</span>
+            <span class="weather-value" id="weather-value">Lanús&nbsp; 18° <b>☀</b></span>
+          </div>
+          <button class="search-trigger" type="button" aria-label="Buscar noticias" data-open-search>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.2 4.2"></path></svg>
+          </button>
+          <a class="instagram-link" href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Seguir a Sala de Prensa en Instagram">IG</a>
+        </div>
+      </div>
+
+      <nav class="main-nav" aria-label="Secciones">
+        <div class="container nav-content">
+          <a class="active" href="#actualidad">Actualidad</a>
+          <a href="#politica">Política</a>
+          <a href="#deportes">Deportes</a>
+          <a href="#cultura">Cultura</a>
+          <a href="#ultimas">Último momento</a>
+        </div>
+      </nav>
+    </header>
+
+    <div class="mobile-menu" aria-hidden="true">
+      <a href="#actualidad">Actualidad</a><a href="#politica">Política</a><a href="#deportes">Deportes</a><a href="#cultura">Cultura</a><a href="#ultimas">Último momento</a>
+      <a href="#contacto">Publicitá con nosotros</a>
+    </div>
+
+    <main id="contenido" class="container">
+      <section class="urgent-strip" aria-label="Noticias urgentes">
+        <span class="urgent-badge">URGENTE</span>
+        <a href="noticia.html">El Concejo Deliberante convocó a una sesión especial para esta tarde</a>
+        <span class="urgent-time">Hace 12 min</span>
+      </section>
+
+      <section class="front-grid" id="actualidad" aria-labelledby="front-title">
+        <article class="lead-story searchable-card" data-search="actualidad concejo deliberante obras transporte vecinos lanus">
+          <a class="story-image image-city" href="noticia.html" aria-label="Leer nota principal"></a>
+          <div class="lead-content">
+            <p class="eyebrow">ACTUALIDAD</p>
+            <h1 id="front-title"><a href="noticia.html">Los cambios que se vienen en la ciudad y cómo impactan en la vida cotidiana</a></h1>
+            <p class="lead-summary">Una recorrida por las obras, los proyectos en debate y las demandas que más se repiten entre los vecinos.</p>
+            <div class="story-meta"><time datetime="2026-09-17T14:20">HOY, 14:20</time><span>•</span><button class="text-share" type="button" data-share>Compartir</button></div>
+          </div>
+        </article>
+
+        <div class="secondary-stories" aria-label="Noticias destacadas">
+          <article class="story-card searchable-card" data-search="politica provincia presupuesto legislatura distrito">
+            <a class="card-image image-politics" href="#politica"></a>
+            <p class="eyebrow">POLÍTICA</p>
+            <h2><a href="#politica">Qué temas entran en agenda esta semana y cuáles siguen en debate</a></h2>
+            <time datetime="2026-09-17T12:45">HOY, 12:45</time>
+          </article>
+          <article class="story-card searchable-card" data-search="deportes club barrio futbol inferiores torneo">
+            <a class="card-image image-sports" href="#deportes"></a>
+            <p class="eyebrow">DEPORTES</p>
+            <h2><a href="#deportes">Una jornada que volvió a poner al deporte barrial en el centro</a></h2>
+            <time datetime="2026-09-17T11:08">HOY, 11:08</time>
+          </article>
+        </div>
+
+        <aside class="latest-panel" id="ultimas" aria-labelledby="latest-title">
+          <div class="panel-title"><span></span><h2 id="latest-title">Último momento</h2></div>
+          <ol>
+            <li><time>15:05</time><a href="#actualidad">Se habilitó un nuevo operativo de atención para vecinos</a></li>
+            <li><time>14:20</time><a href="#nota-principal">Cambios y proyectos que impactan en la ciudad</a></li>
+            <li><time>13:32</time><a href="#politica">La agenda política que concentra las miradas</a></li>
+            <li><time>12:45</time><a href="#cultura">Una propuesta cultural que reúne a todas las generaciones</a></li>
+            <li><time>11:08</time><a href="#deportes">El deporte barrial tuvo una jornada especial</a></li>
+          </ol>
+          <a class="all-latest" href="#archivo">Ver todas las noticias <span>→</span></a>
+          <aside class="ad ad-rail" aria-label="Publicidad lateral">
+            <span>PUBLICIDAD</span>
+            <strong>Tu marca<br />puede estar acá</strong>
+            <small>Banner responsive</small>
+          </aside>
+        </aside>
+      </section>
+
+      <aside class="ad ad-horizontal" aria-label="Publicidad"><span>PUBLICIDAD</span><strong>Espacio publicitario</strong><small>Banner responsive</small></aside>
+
+      <section class="section-block" id="politica" aria-labelledby="politica-title">
+        <div class="section-heading"><p class="section-index">01</p><h2 id="politica-title">Política</h2><a href="#archivo">Ver sección <span>→</span></a></div>
+        <div class="three-grid">
+          <article class="story-card featured searchable-card" data-search="politica elecciones provincia representantes acuerdos">
+            <a class="card-image image-meeting" href="#archivo"></a><p class="eyebrow">ANÁLISIS</p><h3><a href="#archivo">Las alianzas y los acuerdos que reordenan la discusión política</a></h3><time>HOY, 10:30</time>
+          </article>
+          <article class="story-card searchable-card" data-search="politica entrevista representantes voces distrito">
+            <a class="card-image image-interview" href="#archivo"></a><p class="eyebrow">POLÍTICA</p><h3><a href="#archivo">Las voces que buscan instalarse en la agenda pública</a></h3><time>AYER, 19:08</time>
+          </article>
+          <article class="text-story searchable-card" data-search="opinion editorial politica debate democracia">
+            <p class="eyebrow">OPINIÓN</p><h3><a href="#archivo">La conversación pública necesita más contexto y menos ruido</a></h3><p>Una mirada editorial sobre la semana que pasó.</p><time>AYER, 17:40</time>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-block" id="deportes" aria-labelledby="deportes-title">
+        <div class="section-heading"><p class="section-index">02</p><h2 id="deportes-title">Deportes</h2><a href="#archivo">Ver sección <span>→</span></a></div>
+        <div class="sports-layout">
+          <article class="wide-card searchable-card" data-search="deportes club futbol entrenamiento protagonistas">
+            <a class="wide-image image-football" href="#archivo"><span class="play-badge">▶</span></a><div><p class="eyebrow">VIDEO</p><h3><a href="#archivo">Historias de club: el entrenamiento que moviliza a todo un barrio</a></h3><p>Una pieza audiovisual de ejemplo para mostrar cómo se integrarán las noticias con video.</p><time>HOY, 09:15</time></div>
+          </article>
+          <div class="compact-list">
+            <article class="compact-story searchable-card" data-search="deportes basquet competencia juvenil"><span class="mini-image image-basket"></span><div><p class="eyebrow">DEPORTES</p><h3><a href="#archivo">Una competencia que impulsa a nuevas generaciones</a></h3><time>AYER, 20:14</time></div></article>
+            <article class="compact-story searchable-card" data-search="deportes atletismo comunidad"><span class="mini-image image-run"></span><div><p class="eyebrow">DEPORTES</p><h3><a href="#archivo">El encuentro que volvió a reunir a la comunidad</a></h3><time>AYER, 15:50</time></div></article>
+          </div>
+        </div>
+      </section>
+
+      <aside class="ad ad-inline" aria-label="Publicidad"><span>PUBLICIDAD</span><strong>Tu marca puede estar acá</strong><a href="#contacto">Conocé las opciones para anunciarte →</a></aside>
+
+      <section class="section-block" id="cultura" aria-labelledby="cultura-title">
+        <div class="section-heading"><p class="section-index">03</p><h2 id="cultura-title">Cultura</h2><a href="#archivo">Ver sección <span>→</span></a></div>
+        <div class="culture-grid">
+          <article class="story-card searchable-card" data-search="cultura arte exposicion artistas"><a class="card-image image-art" href="#archivo"></a><p class="eyebrow">CULTURA</p><h3><a href="#archivo">Un espacio que abre sus puertas para acercar el arte</a></h3><time>AYER, 18:23</time></article>
+          <article class="story-card searchable-card" data-search="cultura musica artistas recital"><a class="card-image image-music" href="#archivo"></a><p class="eyebrow">CULTURA</p><h3><a href="#archivo">La música que cruza generaciones y vuelve a encontrarse</a></h3><time>AYER, 14:09</time></article>
+          <article class="story-card searchable-card" data-search="cultura cine historias personajes"><a class="card-image image-cinema" href="#archivo"></a><p class="eyebrow">CULTURA</p><h3><a href="#archivo">Relatos que encuentran otra forma de llegar al público</a></h3><time>LUNES, 18:02</time></article>
+        </div>
+      </section>
+
+      <section class="archive-section" id="archivo" aria-labelledby="archive-title">
+        <div class="section-heading"><p class="section-index">04</p><h2 id="archive-title">Más noticias</h2></div>
+        <div class="archive-grid" id="archive-grid">
+          <article class="archive-item searchable-card" data-search="actualidad transito servicios vecinos"><time>16 SEP · ACTUALIDAD</time><h3><a href="#">Servicios que cambian el recorrido de los vecinos</a></h3></article>
+          <article class="archive-item searchable-card" data-search="politica concejo proyectos"><time>16 SEP · POLÍTICA</time><h3><a href="#">Los proyectos que volvieron a la discusión</a></h3></article>
+          <article class="archive-item searchable-card" data-search="deportes equipo torneo"><time>15 SEP · DEPORTES</time><h3><a href="#">El equipo que prepara su próximo desafío</a></h3></article>
+          <article class="archive-item searchable-card" data-search="cultura teatro artistas"><time>15 SEP · CULTURA</time><h3><a href="#">Una propuesta con protagonistas de la escena local</a></h3></article>
+          <article class="archive-item is-hidden searchable-card" data-search="actualidad obras barrio"><time>14 SEP · ACTUALIDAD</time><h3><a href="#">Las obras que se esperan en distintos barrios</a></h3></article>
+          <article class="archive-item is-hidden searchable-card" data-search="politica provincia gestion"><time>14 SEP · POLÍTICA</time><h3><a href="#">La gestión y sus próximos desafíos</a></h3></article>
+          <article class="archive-item is-hidden searchable-card" data-search="deportes clubes comunidad"><time>13 SEP · DEPORTES</time><h3><a href="#">Los clubes y una nueva iniciativa comunitaria</a></h3></article>
+          <article class="archive-item is-hidden searchable-card" data-search="cultura lectura encuentro"><time>13 SEP · CULTURA</time><h3><a href="#">El encuentro que celebra a la lectura</a></h3></article>
+        </div>
+        <button class="load-more" id="load-more" type="button">Cargar más noticias <span>↓</span></button>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contacto">
+      <div class="container footer-grid">
+        <div><img src="assets/sala-de-prensa-logo.jpeg" alt="Sala de Prensa" class="footer-logo" /><p>Información, contexto y actualidad.<br />La voz del pueblo.</p></div>
+        <div><h2>Secciones</h2><a href="#actualidad">Actualidad</a><a href="#politica">Política</a><a href="#deportes">Deportes</a><a href="#cultura">Cultura</a></div>
+        <div><h2>Contacto comercial</h2><p>¿Querés que tu marca llegue a nuestra comunidad?</p><a class="footer-cta" href="mailto:contacto@lanusaladeprensa.com">Publicitá con nosotros →</a><a href="https://instagram.com" target="_blank" rel="noreferrer">Seguinos en Instagram</a></div>
+      </div>
+      <div class="footer-bottom container"><span>© 2026 Sala de Prensa</span><a href="#">Política de privacidad</a><a href="#">Términos y condiciones</a></div>
+    </footer>
+
+    <div class="search-dialog" id="search-dialog" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="search-title">
+      <div class="search-box"><button class="close-search" type="button" aria-label="Cerrar búsqueda">×</button><p class="eyebrow">BUSCADOR</p><h2 id="search-title">Encontrá una noticia</h2><label for="search-input">Buscar por fecha, sección o palabras</label><input id="search-input" type="search" placeholder="Ej.: política, cultura, 16 sep..." autocomplete="off" /><p class="search-status" id="search-status">Escribí para buscar entre las notas de ejemplo.</p><div class="search-results" id="search-results"></div></div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
