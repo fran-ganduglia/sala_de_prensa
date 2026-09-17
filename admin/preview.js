@@ -1,0 +1,10 @@
+(function () {
+  var CMS = window.CMS; var h = window.h; var createClass = window.createClass;
+  if (!CMS || !h || !createClass) return;
+  CMS.registerPreviewStyle('admin.css');
+  function value(entry, key, fallback) { var item = entry.getIn(['data', key]); return item === undefined || item === null || item === '' ? fallback : String(item); }
+  function object(entry, key) { var item = entry.getIn(['data', key]); return item && item.toJS ? item.toJS() : {}; }
+  function device(component) { return h('div', { className: 'preview-device-selector' }, h('button', { onClick: function () { component.setState({ device: 'desktop' }); } }, 'Escritorio'), h('button', { onClick: function () { component.setState({ device: 'mobile' }); } }, 'Móvil')); }
+  var Preview = createClass({ getInitialState: function () { return { device: 'desktop' }; }, render: function () { var entry = this.props.entry; var placement = object(entry, 'placement'); var classification = object(entry, 'classification'); var media = object(entry, 'media'); var title = value(entry, 'title', 'Titular de la noticia'); var summary = value(entry, 'summary', 'La bajada aparecerá aquí si la cargás.'); var image = ''; try { var asset = media.image && this.props.getAsset(media.image); image = asset ? asset.toString() : ''; } catch (error) {} return h('div', { className: 'preview-root' }, device(this), h('div', { className: 'news-preview news-preview--' + this.state.device }, h('header', {}, h('b', {}, 'SALA DE PRENSA'), h('span', {}, 'ACTUALIDAD · POLÍTICA · DEPORTES · CULTURA')), placement.urgent && h('p', { className: 'preview-urgent' }, 'URGENTE'), h('p', { className: 'preview-category' }, classification.primarySection || 'ACTUALIDAD'), h('h1', {}, title), h('p', { className: 'preview-summary' }, summary), image && h('img', { src: image, alt: '' }), h('p', { className: 'preview-meta' }, 'Fecha y hora de publicación'), h('hr', {}), h('p', {}, 'La nota se adapta aunque no tenga imagen, galería, video o texto extenso.'))); } });
+  CMS.registerPreviewTemplate('news', Preview);
+}());

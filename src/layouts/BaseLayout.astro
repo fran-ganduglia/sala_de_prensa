@@ -1,0 +1,9 @@
+---
+interface Props { title?: string; description?: string; article?: Record<string, unknown>; }
+const { title = 'Sala de Prensa | La voz del pueblo', description = 'Actualidad, política, deportes y cultura.', article } = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const logo = Astro.site ? new URL('/assets/sala-de-prensa-logo.jpeg', Astro.site).href : undefined;
+const schema = article ? article : { '@context': 'https://schema.org', '@type': 'NewsMediaOrganization', name: 'Sala de Prensa', url: Astro.site?.href };
+---
+<!doctype html>
+<html lang="es-AR"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="description" content={description} /><link rel="stylesheet" href="/styles.css" />{canonical && <link rel="canonical" href={canonical} />}<meta property="og:locale" content="es_AR" /><meta property="og:type" content={article ? 'article' : 'website'} /><meta property="og:site_name" content="Sala de Prensa" /><meta property="og:title" content={title} /><meta property="og:description" content={description} />{canonical && <meta property="og:url" content={canonical} />}{logo && <meta property="og:image" content={logo} />}<meta name="twitter:card" content="summary_large_image" /><title>{title}</title><script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} /></head><body><slot /><script is:inline src="/app.js"></script></body></html>
