@@ -1,5 +1,5 @@
 ---
-title: NOELIA QUINDIMIL SIGUE ARMANDO SU CANDIDATURA A INTENDENTA EN LANUS
+title: Noelia Quindimil sigue armando su candidatura a Intendenta en Lanús
 summary: Con reuniones de referentes y dirigentes políticos de Lanús, Noelia
   tiene una agenda frondosa que trabajar.
 publishedAt: 2026-09-21T00:27:00-03:00
