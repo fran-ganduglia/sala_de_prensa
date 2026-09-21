@@ -52,6 +52,16 @@
     return String(reference.slug || reference.value || reference.path || '');
   }
 
+  function relationStory(component, field, slug) {
+    if (!slug || !component.props.fieldsMetaData) return null;
+    var metadata = component.props.fieldsMetaData;
+    var item = metadata.getIn ? metadata.getIn([field, slug]) : null;
+    if (!item && metadata.get) item = metadata.get(field);
+    if (!item) return null;
+    var data = collectionValue(item, 'data', item);
+    return storyFromData(slug, data);
+  }
+
   function storyFromData(slug, data) {
     return {
       slug: slug,
@@ -150,6 +160,10 @@
     loadStories: function () {
       var entry = this.props.entry;
       var slugs = this.selectedSlugs(entry);
+      var localStories = [
+        relationStory(this, 'main', relationSlug(entry.getIn(['data', 'main']))),
+        relationStory(this, 'urgent', relationSlug(entry.getIn(['data', 'urgent'])))
+      ].filter(Boolean);
       this.setState({ loading: true, error: false });
       Promise.all([
         Promise.all(slugs.map(function (slug) {
@@ -160,7 +174,11 @@
         }, this)),
         this.props.getCollection('news').then(collectionStories)
       ]).then(function (results) {
-        this.setState({ stories: results[0], latest: results[1], loading: false });
+        var stories = results[0].filter(Boolean);
+        localStories.forEach(function (story) {
+          if (!stories.some(function (loaded) { return loaded.slug === story.slug; })) stories.push(story);
+        });
+        this.setState({ stories: stories, latest: results[1], loading: false });
       }.bind(this)).catch(function () {
         this.setState({ loading: false, error: true });
       }.bind(this));
@@ -208,4 +226,5 @@
   });
 
   CMS.registerPreviewTemplate('homepage', HomepagePreview);
+  CMS.registerPreviewTemplate('portada', HomepagePreview);
 }());
