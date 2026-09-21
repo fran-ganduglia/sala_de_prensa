@@ -4,10 +4,7 @@ export const slugOf = (entry: { id: string }) => entry.id.replace(/\.md$/, '');
 
 export async function getNews() {
   const entries = await getCollection('news');
-  return entries.sort((a, b) => {
-    const first = b.data.homepageOrder - a.data.homepageOrder;
-    return first || b.data.publishedAt.getTime() - a.data.publishedAt.getTime();
-  });
+  return entries.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
 }
 
 export function formatDate(date: Date) {

@@ -32,10 +32,6 @@ collections:
       - { label: Sección principal, name: primarySection, widget: select, required: false, options: [Actualidad, Política, Deportes, Cultura] }
       - { label: Otras secciones, name: sections, widget: select, multiple: true, required: false, options: [Actualidad, Política, Deportes, Cultura], hint: "Una noticia puede aparecer en más de una sección." }
       - { label: Etiquetas, name: tags, widget: list, required: false, hint: "Opcional. Sirven para búsqueda y recomendaciones." }
-      - { label: Rotular como urgente, name: urgent, widget: boolean, default: false, required: false }
-      - { label: Noticia principal, name: main, widget: boolean, default: false, required: false, hint: "Solo una debería estar activa." }
-      - { label: Destacar en portada, name: featured, widget: boolean, default: false, required: false }
-      - { label: Orden manual, name: homepageOrder, widget: number, default: 0, required: false, value_type: int, min: 0, hint: "Mayor número = mayor prioridad." }
       - { label: Imagen principal, name: image, widget: image, required: false, choose_url: true }
       - { label: Crédito de imagen, name: imageCredit, widget: string, required: false }
       - label: Galería
@@ -54,3 +50,44 @@ collections:
           - { label: Enlace o archivo, name: url, widget: string, required: false, hint: "Pegá una URL de YouTube/Instagram o la ruta del archivo propio." }
           - { label: Descripción, name: caption, widget: string, required: false }
       - { label: Cuerpo de la noticia, name: body, widget: markdown, required: false, hint: "Opcional. Podés publicar una actualización breve, texto extenso o solo multimedia." }
+  - name: homepage
+    label: Portada
+    label_singular: Organización de portada
+    files:
+      - name: portada
+        label: Organización de portada
+        file: src/content/home/portada.yml
+        fields:
+          - label: Noticia principal
+            name: main
+            widget: relation
+            collection: news
+            search_fields: [title]
+            value_field: "{{slug}}"
+            display_fields: [title, primarySection, publishedAt]
+            options_length: 100
+            hint: "La única nota que se muestra como principal en la portada."
+          - label: Noticia urgente
+            name: urgent
+            widget: relation
+            required: false
+            collection: news
+            search_fields: [title]
+            value_field: "{{slug}}"
+            display_fields: [title, primarySection, publishedAt]
+            options_length: 100
+            hint: "Opcional. Esta selección controla la tira URGENTE, independientemente de la nota principal."
+          - label: Noticias destacadas
+            name: featured
+            widget: list
+            required: false
+            hint: "Agregá y reordená las notas. Las dos primeras se muestran junto a la noticia principal."
+            fields:
+              - label: Noticia
+                name: story
+                widget: relation
+                collection: news
+                search_fields: [title]
+                value_field: "{{slug}}"
+                display_fields: [title, primarySection, publishedAt]
+                options_length: 100

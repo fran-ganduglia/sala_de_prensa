@@ -13,9 +13,8 @@ const news = defineCollection({
     if (!input || typeof input !== 'object') return input;
     const entry = input as Record<string, unknown>;
     const classification = (entry.classification || {}) as Record<string, unknown>;
-    const placement = (entry.placement || {}) as Record<string, unknown>;
     const media = (entry.media || {}) as Record<string, unknown>;
-    return { ...entry, ...classification, ...placement, ...media };
+    return { ...entry, ...classification, ...media };
   }, z.object({
     title: z.string().min(1),
     summary: z.string().optional().default(''),
@@ -28,11 +27,16 @@ const news = defineCollection({
     imageCredit: z.string().optional(),
     gallery: z.array(z.object({ image: z.string(), caption: z.string().optional() })).default([]),
     videos: z.array(video).default([]),
-    urgent: z.boolean().default(false),
-    main: z.boolean().default(false),
-    featured: z.boolean().default(false),
-    homepageOrder: z.number().int().default(0),
   })),
 });
 
-export const collections = { news };
+const home = defineCollection({
+  loader: glob({ pattern: '**/*.yml', base: './src/content/home' }),
+  schema: z.object({
+    main: z.string().optional(),
+    urgent: z.string().optional(),
+    featured: z.array(z.object({ story: z.string() })).default([]),
+  }),
+});
+
+export const collections = { news, home };

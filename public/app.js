@@ -1,22 +1,87 @@
-const weather = [
-  { place: 'Lanús', temp: '18°', icon: '☀' },
-  { place: 'Avellaneda', temp: '17°', icon: '⛅' },
-  { place: 'Lomas', temp: '18°', icon: '☀' },
-  { place: 'Quilmes', temp: '16°', icon: '☁' },
-  { place: 'Almirante Brown', temp: '17°', icon: '⛅' }
+const weatherLocations = [
+  { place: 'Lanús', latitude: -34.702, longitude: -58.391 },
+  { place: 'Lanús Este', latitude: -34.700, longitude: -58.377 },
+  { place: 'Lanús Oeste', latitude: -34.700, longitude: -58.405 },
+  { place: 'Remedios de Escalada', latitude: -34.721, longitude: -58.393 },
+  { place: 'Valentín Alsina', latitude: -34.675, longitude: -58.413 },
+  { place: 'Monte Chingolo', latitude: -34.731, longitude: -58.358 },
+  { place: 'Gerli', latitude: -34.685, longitude: -58.382 },
+  { place: 'Avellaneda', latitude: -34.662, longitude: -58.365 },
+  { place: 'Banfield', latitude: -34.746, longitude: -58.391 },
+  { place: 'Lomas de Zamora', latitude: -34.761, longitude: -58.403 },
+  { place: 'Quilmes', latitude: -34.724, longitude: -58.252 },
+  { place: 'Adrogué', latitude: -34.801, longitude: -58.391 }
 ];
 
+let weather = [];
 let weatherIndex = 0;
 const weatherValue = document.querySelector('#weather-value');
-setInterval(() => {
+
+function weatherIcon(code, isDay) {
+  if (code === 0) return isDay ? '☀' : '☾';
+  if ([1, 2].includes(code)) return isDay ? '⛅' : '☁';
+  if (code === 3) return '☁';
+  if ([45, 48].includes(code)) return '🌫';
+  if ([51, 53, 55, 56, 57, 80, 81, 82].includes(code)) return '🌦';
+  if ([61, 63, 65, 66, 67].includes(code)) return '🌧';
+  if ([71, 73, 75, 77, 85, 86].includes(code)) return '❄';
+  if ([95, 96, 99].includes(code)) return '⛈';
+  return '☁';
+}
+
+function renderWeather(item) {
+  if (!weatherValue) return;
+  weatherValue.replaceChildren(document.createTextNode(`${item.place} ${item.temp}`));
+  const icon = document.createElement('b');
+  icon.textContent = item.icon;
+  weatherValue.append(' ', icon);
+}
+
+function rotateWeather() {
+  if (!weather.length || !weatherValue) return;
   weatherValue.classList.add('changing');
   setTimeout(() => {
     weatherIndex = (weatherIndex + 1) % weather.length;
-    const item = weather[weatherIndex];
-    weatherValue.innerHTML = `${item.place}&nbsp; ${item.temp} <b>${item.icon}</b>`;
+    renderWeather(weather[weatherIndex]);
     weatherValue.classList.remove('changing');
   }, 260);
-}, 3800);
+}
+
+async function loadWeather() {
+  const query = new URLSearchParams({
+    latitude: weatherLocations.map(location => location.latitude).join(','),
+    longitude: weatherLocations.map(location => location.longitude).join(','),
+    current: 'temperature_2m,weather_code,is_day',
+    timezone: 'America/Argentina/Buenos_Aires'
+  });
+
+  try {
+    const response = await fetch(`https://api.open-meteo.com/v1/forecast?${query}`);
+    if (!response.ok) throw new Error(`Open-Meteo respondió ${response.status}`);
+    const readings = await response.json();
+    const results = Array.isArray(readings) ? readings : [readings];
+    weather = results.map((reading, index) => {
+      const current = reading.current;
+      if (!current) return null;
+      return {
+        place: weatherLocations[index].place,
+        temp: `${Math.round(current.temperature_2m)}°`,
+        icon: weatherIcon(current.weather_code, current.is_day === 1)
+      };
+    }).filter(Boolean);
+
+    if (!weather.length) throw new Error('Open-Meteo no devolvió condiciones actuales');
+    weatherIndex = 0;
+    renderWeather(weather[weatherIndex]);
+  } catch (error) {
+    if (weatherValue) weatherValue.textContent = 'Clima no disponible';
+    console.warn('No se pudo actualizar el clima:', error);
+  }
+}
+
+loadWeather();
+setInterval(rotateWeather, 3800);
+setInterval(loadWeather, 15 * 60 * 1000);
 
 const dialog = document.querySelector('#search-dialog');
 const searchInput = document.querySelector('#search-input');
