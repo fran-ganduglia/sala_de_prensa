@@ -1,0 +1,37 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { archiveHref, formatDate, imagePosition, slugOf } from '../lib/news';
+
+interface Props {
+  entries: CollectionEntry<'news'>[];
+  currentPage: number;
+  pageCount: number;
+}
+
+const { entries, currentPage, pageCount } = Astro.props;
+const imageFrameStyle = (entry: CollectionEntry<'news'>) => `--image:url('${entry.data.image}');--image-position:${imagePosition(entry.data.imagePosition)}`;
+---
+
+<section class="archive-page" aria-labelledby="archivo-title">
+  <header class="section-page-header">
+    <p class="eyebrow">SALA DE PRENSA</p>
+    <h1 id="archivo-title">Archivo de noticias</h1>
+    <p>Todo el contenido publicado, ordenado desde lo más reciente.</p>
+  </header>
+  {entries.length ? <div class="archive-page-grid">
+    {entries.map((entry) => <article class="archive-page-card">
+      <a class="archive-page-image image-frame" data-adaptive-image style={imageFrameStyle(entry)} href={`/noticias/${slugOf(entry)}/`}>
+        <img src={entry.data.image} alt="" loading="lazy" decoding="async" />
+      </a>
+      <p class="eyebrow">{entry.data.primarySection}</p>
+      <h2><a href={`/noticias/${slugOf(entry)}/`}>{entry.data.title}</a></h2>
+      {entry.data.summary && <p>{entry.data.summary}</p>}
+      <time datetime={entry.data.publishedAt.toISOString()}>{formatDate(entry.data.publishedAt)}</time>
+    </article>)}
+  </div> : <p class="section-page-empty">Todavía no hay noticias publicadas.</p>}
+  {pageCount > 1 && <nav class="pagination" aria-label="Páginas del archivo">
+    {currentPage > 1 && <a href={archiveHref(currentPage - 1)} rel="prev">← Más recientes</a>}
+    <span aria-current="page">Página {currentPage} de {pageCount}</span>
+    {currentPage < pageCount && <a href={archiveHref(currentPage + 1)} rel="next">Más anteriores →</a>}
+  </nav>}
+</section>

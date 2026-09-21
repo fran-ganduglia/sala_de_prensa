@@ -18,6 +18,16 @@ const sectionSlugs: Record<SiteSection, string> = {
 
 export const slugOf = (entry: { id: string }) => entry.id.replace(/\.md$/, "");
 
+export const archivePageSize = 12;
+
+export function archiveHref(page: number) {
+  return page <= 1 ? '/archivo/' : `/archivo/pagina/${page}/`;
+}
+
+export function archivePageCount(totalEntries: number) {
+  return Math.max(1, Math.ceil(totalEntries / archivePageSize));
+}
+
 export function sectionSlug(section: SiteSection) {
   return sectionSlugs[section];
 }

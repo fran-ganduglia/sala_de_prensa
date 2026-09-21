@@ -1,12 +1,85 @@
 ---
-interface Props { title?: string; description?: string; image?: string; imageAlt?: string; article?: Record<string, unknown>; }
-const { title = 'Sala de Prensa | La voz del pueblo', description = 'Actualidad, política, deportes y cultura.', image, imageAlt = '', article } = Astro.props;
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  article?: Record<string, unknown>;
+  structuredData?: Record<string, unknown>[];
+  robots?: string;
+}
+
+const {
+  title = 'Sala de Prensa | La voz del pueblo',
+  description = 'Actualidad, política, deportes y cultura.',
+  image,
+  imageAlt = '',
+  article,
+  structuredData = [],
+  robots = 'index,follow',
+} = Astro.props;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
 const logo = Astro.site ? new URL('/assets/sala-de-prensa-logo-v2.png', Astro.site).href : undefined;
-const articleImage = article && typeof article.image === 'string' ? article.image : undefined;
+const articleImageValue = article?.image;
+const articleImage = typeof articleImageValue === 'string'
+  ? articleImageValue
+  : articleImageValue && typeof articleImageValue === 'object' && 'url' in articleImageValue && typeof articleImageValue.url === 'string'
+    ? articleImageValue.url
+    : undefined;
 const socialImageSource = image || articleImage;
 const socialImage = socialImageSource && Astro.site ? new URL(socialImageSource, Astro.site).href : logo;
-const schema = article ? article : { '@context': 'https://schema.org', '@type': 'NewsMediaOrganization', name: 'Sala de Prensa', url: Astro.site?.href };
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsMediaOrganization',
+  '@id': Astro.site ? new URL('/#organization', Astro.site).href : undefined,
+  name: 'Sala de Prensa',
+  url: Astro.site?.href,
+  logo: logo ? { '@type': 'ImageObject', url: logo } : undefined,
+  sameAs: ['https://www.instagram.com/sala_de_prensa_ok/'],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer support',
+    email: 'contacto@lanusaladeprensa.com',
+    availableLanguage: 'es',
+  },
+};
+const schemas = [organizationSchema, ...(article ? [article] : []), ...structuredData];
 ---
+
 <!doctype html>
-<html lang="es-AR"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="description" content={description} /><link rel="icon" href="/assets/sala-de-prensa-logo-v2.png" type="image/png" /><link rel="stylesheet" href="/styles.css" />{canonical && <link rel="canonical" href={canonical} />}<meta property="og:locale" content="es_AR" /><meta property="og:type" content={article ? 'article' : 'website'} /><meta property="og:site_name" content="Sala de Prensa" /><meta property="og:title" content={title} /><meta property="og:description" content={description} />{canonical && <meta property="og:url" content={canonical} />}{socialImage && <><meta property="og:image" content={socialImage} /><meta property="og:image:alt" content={imageAlt || title} /><meta name="twitter:image" content={socialImage} /><meta name="twitter:image:alt" content={imageAlt || title} /></>}<meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={title} /><meta name="twitter:description" content={description} /><title>{title}</title><script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} /></head><body><slot /><script is:inline src="/app.js"></script></body></html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    <link rel="icon" href="/assets/sala-de-prensa-logo-v2.png" type="image/png" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="alternate" type="application/rss+xml" title="Sala de Prensa RSS" href="/rss.xml" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    <meta property="og:site_name" content="Sala de Prensa" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {socialImage && <>
+      <meta property="og:image" content={socialImage} />
+      <meta property="og:image:alt" content={imageAlt || title} />
+      <meta name="twitter:image" content={socialImage} />
+      <meta name="twitter:image:alt" content={imageAlt || title} />
+    </>}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <title>{title}</title>
+    {schemas.map((schema) => <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+  </head>
+  <body>
+    <slot />
+    <Footer />
+    <script is:inline src="/app.js"></script>
+  </body>
+</html>

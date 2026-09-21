@@ -1,0 +1,14 @@
+---
+import NewsArchive from '../../components/NewsArchive.astro';
+import Header from '../../components/Header.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { archivePageCount, archivePageSize, getNews } from '../../lib/news';
+
+const news = await getNews();
+const pageCount = archivePageCount(news.length);
+---
+
+<BaseLayout title="Archivo de noticias | Sala de Prensa" description="Archivo completo de noticias de Sala de Prensa.">
+  <Header />
+  <main class="section-page container"><NewsArchive entries={news.slice(0, archivePageSize)} currentPage={1} pageCount={pageCount} /></main>
+</BaseLayout>

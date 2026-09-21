@@ -24,9 +24,10 @@ const news = defineCollection({
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
     image: z.string().optional(),
+    imageAlt: z.string().optional().default(''),
     imagePosition: z.string().optional(),
     imageCredit: z.string().optional(),
-    gallery: z.array(z.object({ image: z.string(), caption: z.string().optional() })).default([]),
+    gallery: z.array(z.object({ image: z.string(), alt: z.string().optional().default(''), caption: z.string().optional() })).default([]),
     videos: z.array(video).default([]),
   })),
 });

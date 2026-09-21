@@ -153,20 +153,73 @@ if (loadMore) {
   });
 }
 
-document.querySelectorAll('[data-share]').forEach(button => button.addEventListener('click', async () => {
-  const shareData = { title: document.title, text: 'Los cambios que se vienen en la ciudad', url: window.location.href };
+const shareTitle = document.querySelector('h1')?.textContent?.trim() || document.querySelector('meta[property="og:title"]')?.getAttribute('content') || document.title;
+const shareText = document.querySelector('meta[name="description"]')?.getAttribute('content') || '';
+const shareUrl = document.querySelector('link[rel="canonical"]')?.getAttribute('href') || window.location.href;
+const shareData = { title: shareTitle, text: shareText, url: shareUrl };
+
+async function copyShareUrl(button) {
+  const label = button.textContent;
   try {
-    if (navigator.share) await navigator.share(shareData);
-    else { await navigator.clipboard.writeText(window.location.href); button.textContent = 'Enlace copiado'; setTimeout(() => button.textContent = 'Compartir', 1800); }
-  } catch (_) { /* El usuario cerró la acción de compartir. */ }
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(shareUrl);
+    } else {
+      const temporaryInput = document.createElement('textarea');
+      temporaryInput.value = shareUrl;
+      temporaryInput.setAttribute('readonly', '');
+      temporaryInput.style.position = 'fixed';
+      temporaryInput.style.opacity = '0';
+      document.body.append(temporaryInput);
+      temporaryInput.select();
+      const copied = document.execCommand('copy');
+      temporaryInput.remove();
+      if (!copied) throw new Error('No se pudo copiar el enlace');
+    }
+    button.textContent = 'Enlace copiado';
+  } catch (_) {
+    button.textContent = 'No se pudo copiar';
+  }
+  setTimeout(() => { button.textContent = label; }, 1800);
+}
+
+document.querySelectorAll('[data-share]').forEach(button => button.addEventListener('click', async () => {
+  if (!navigator.share) return copyShareUrl(button);
+  try {
+    await navigator.share(shareData);
+  } catch (error) {
+    if (error?.name !== 'AbortError') copyShareUrl(button);
+  }
 }));
+document.querySelectorAll('[data-copy-link]').forEach(button => button.addEventListener('click', () => copyShareUrl(button)));
 
 const toggle = document.querySelector('.menu-toggle');
 const mobileMenu = document.querySelector('.mobile-menu');
-toggle.addEventListener('click', () => {
-  const isOpen = mobileMenu.classList.toggle('open');
-  toggle.setAttribute('aria-expanded', String(isOpen));
-  mobileMenu.setAttribute('aria-hidden', String(!isOpen));
-});
-mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => { mobileMenu.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }));
-window.addEventListener('scroll', () => document.querySelector('.site-header').classList.toggle('scrolled', window.scrollY > 12), { passive: true });
+
+if (toggle && mobileMenu) {
+  const closeMobileMenu = ({ focusToggle = false } = {}) => {
+    mobileMenu.classList.remove('open');
+    mobileMenu.hidden = true;
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Abrir menú');
+    if (focusToggle) toggle.focus();
+  };
+
+  const openMobileMenu = () => {
+    mobileMenu.hidden = false;
+    mobileMenu.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Cerrar menú');
+  };
+
+  toggle.addEventListener('click', () => {
+    if (mobileMenu.hidden) openMobileMenu();
+    else closeMobileMenu();
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => closeMobileMenu()));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !mobileMenu.hidden) closeMobileMenu({ focusToggle: true });
+  });
+}
+
+const siteHeader = document.querySelector('.site-header');
+if (siteHeader) window.addEventListener('scroll', () => siteHeader.classList.toggle('scrolled', window.scrollY > 12), { passive: true });

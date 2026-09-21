@@ -1,4 +1,4 @@
-import { getNews, sectionHref, siteSections, slugOf } from "../lib/news";
+import { archiveHref, archivePageCount, getNews, sectionHref, siteSections, slugOf } from "../lib/news";
 import type { APIRoute } from "astro";
 
 function escapeXml(value: string) {
@@ -18,7 +18,8 @@ function escapeXml(value: string) {
 export const GET: APIRoute = async ({ site }) => {
   const siteUrl = site || new URL("https://lanusaladeprensa.com/");
   const news = await getNews();
-  const staticPaths = ["/", "/privacidad/", ...siteSections.map(sectionHref)];
+  const archivePaths = Array.from({ length: archivePageCount(news.length) }, (_, index) => archiveHref(index + 1));
+  const staticPaths = ["/", "/privacidad/", ...siteSections.map(sectionHref), ...archivePaths];
   const urls = [
     ...staticPaths.map((path) => ({ loc: new URL(path, siteUrl).href })),
     ...news.map((entry) => ({

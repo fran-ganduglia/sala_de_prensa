@@ -9,8 +9,63 @@ const homepage = await getEntry('home', 'portada');
 const storyBySlug = (slug?: string) => news.find((entry) => slugOf(entry) === slug);
 const main = storyBySlug(homepage?.data.main) || news[0];
 const urgent = storyBySlug(homepage?.data.urgent);
-const featured = homepage?.data.featured.map(({ story }) => storyBySlug(story)).filter((entry): entry is NonNullable<typeof entry> => Boolean(entry) && entry.id !== main?.id).slice(0, 2) || news.filter((entry) => entry.id !== main?.id).slice(0, 2);
-const latest = [...news].sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime()).slice(0, 5);
+const featured = homepage?.data.featured
+  .map(({ story }) => storyBySlug(story))
+  .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry) && entry.id !== main?.id)
+  .slice(0, 2) || news.filter((entry) => entry.id !== main?.id).slice(0, 2);
+const latest = news.slice(0, 5);
 const imageFrameStyle = (entry: typeof news[number]) => `--image:url('${entry.data.image}');--image-position:${imagePosition(entry.data.imagePosition)}`;
 ---
-<BaseLayout><Header /><main class="container"><section class="urgent-strip" aria-label="Noticias urgentes">{urgent && <><span class="urgent-badge">URGENTE</span><a href={`/noticias/${slugOf(urgent)}/`}>{urgent.data.title}</a></>}</section>{main && <section class="front-grid" id="actualidad"><article class="lead-story"><a class="story-image image-frame" data-adaptive-image style={imageFrameStyle(main)} href={`/noticias/${slugOf(main)}/`}><img src={main.data.image} alt="" /></a><div class="lead-content"><p class="eyebrow">{main.data.primarySection}</p><h1><a href={`/noticias/${slugOf(main)}/`}>{main.data.title}</a></h1>{main.data.summary && <p class="lead-summary">{main.data.summary}</p>}<div class="story-meta"><time>{formatTime(main.data.publishedAt)}</time><span>•</span><a class="text-share" href={`/noticias/${slugOf(main)}/`}>Leer nota</a></div></div></article><div class="secondary-stories">{featured.map((entry) => <article class="story-card"><a class="card-image image-frame" data-adaptive-image style={imageFrameStyle(entry)} href={`/noticias/${slugOf(entry)}/`}><img src={entry.data.image} alt="" loading="lazy" /></a><p class="eyebrow">{entry.data.primarySection}</p><h2><a href={`/noticias/${slugOf(entry)}/`}>{entry.data.title}</a></h2><time>{formatTime(entry.data.publishedAt)}</time></article>)}</div><aside class="latest-panel" id="ultimas"><div class="panel-title"><span></span><h2>Último momento</h2></div><ol>{latest.map((entry) => <li><time>{formatTime(entry.data.publishedAt)}</time><a href={`/noticias/${slugOf(entry)}/`}>{entry.data.title}</a></li>)}</ol><a class="all-latest" href="/actualidad/">Ver todas las noticias <span>→</span></a><aside class="ad ad-rail"><span>PUBLICIDAD</span><strong>Tu marca<br />puede estar acá</strong><small>Banner responsive</small></aside></aside></section>}</main><aside class="ad ad-horizontal container"><span>PUBLICIDAD</span><strong>Espacio publicitario</strong><small>Banner responsive</small></aside><main class="container">{siteSections.map((section, index) => { const entries = newsForSection(news, section); return <section class="section-block" id={section.toLowerCase()}><div class="section-heading"><p class="section-index">0{index + 1}</p><h2>{section}</h2><a href={sectionHref(section)}>Ver sección <span>→</span></a></div>{entries.length ? <div class="section-rail">{entries.map((entry) => <article class="story-card"><a class="card-image image-frame" data-adaptive-image style={imageFrameStyle(entry)} href={`/noticias/${slugOf(entry)}/`}><img src={entry.data.image} alt="" loading="lazy" /></a><p class="eyebrow">{entry.data.primarySection}</p><h3><a href={`/noticias/${slugOf(entry)}/`}>{entry.data.title}</a></h3><time>{formatTime(entry.data.publishedAt)}</time></article>)}</div> : <p class="section-rail-empty">Las próximas noticias de esta sección aparecerán acá.</p>}</section>; })}</main><footer class="site-footer" id="contacto"><div class="container footer-grid"><div><img src="/assets/sala-de-prensa-logo.jpeg" alt="Sala de Prensa" class="footer-logo" /><p>Información, contexto y actualidad.<br />La voz del pueblo.</p></div><div><h2>Secciones</h2>{siteSections.map((section) => <a href={sectionHref(section)}>{section}</a>)}</div><div><h2>Contacto comercial</h2><p>¿Querés que tu marca llegue a nuestra comunidad?</p><a class="footer-cta" href="mailto:contacto@lanusaladeprensa.com">Publicitá con nosotros →</a></div></div><div class="footer-bottom container"><span>© 2026 Sala de Prensa</span><a href="/privacidad/">Política de privacidad</a></div></footer></BaseLayout>
+
+<BaseLayout title="Sala de Prensa | La voz del pueblo" description="Actualidad, política, deportes y cultura de Lanús." image={main?.data.image} imageAlt={main?.data.imageAlt || main?.data.title}>
+  <Header />
+  <main class="container">
+    <section class="urgent-strip" aria-label="Noticias urgentes">
+      {urgent && <><span class="urgent-badge">URGENTE</span><a href={`/noticias/${slugOf(urgent)}/`}>{urgent.data.title}</a></>}
+    </section>
+    {main && <section class="front-grid" id="actualidad">
+      <article class="lead-story">
+        <a class="story-image image-frame" data-adaptive-image style={imageFrameStyle(main)} href={`/noticias/${slugOf(main)}/`}>
+          <img src={main.data.image} alt="" fetchpriority="high" decoding="async" />
+        </a>
+        <div class="lead-content">
+          <p class="eyebrow">{main.data.primarySection}</p>
+          <h1><a href={`/noticias/${slugOf(main)}/`}>{main.data.title}</a></h1>
+          {main.data.summary && <p class="lead-summary">{main.data.summary}</p>}
+          <div class="story-meta"><time>{formatTime(main.data.publishedAt)}</time><span>•</span><a class="text-share" href={`/noticias/${slugOf(main)}/`}>Leer nota</a></div>
+        </div>
+      </article>
+      <div class="secondary-stories">
+        {featured.map((entry) => <article class="story-card">
+          <a class="card-image image-frame" data-adaptive-image style={imageFrameStyle(entry)} href={`/noticias/${slugOf(entry)}/`}><img src={entry.data.image} alt="" loading="lazy" decoding="async" /></a>
+          <p class="eyebrow">{entry.data.primarySection}</p>
+          <h2><a href={`/noticias/${slugOf(entry)}/`}>{entry.data.title}</a></h2>
+          <time>{formatTime(entry.data.publishedAt)}</time>
+        </article>)}
+      </div>
+      <aside class="latest-panel" id="ultimas">
+        <div class="panel-title"><span></span><h2>Último momento</h2></div>
+        <ol>{latest.map((entry) => <li><time>{formatTime(entry.data.publishedAt)}</time><a href={`/noticias/${slugOf(entry)}/`}>{entry.data.title}</a></li>)}</ol>
+        <a class="all-latest" href="/archivo/">Ver todas las noticias <span>→</span></a>
+        <aside class="ad ad-rail"><span>PUBLICIDAD</span><strong>Tu marca<br />puede estar acá</strong><small>Banner responsive</small></aside>
+      </aside>
+    </section>}
+  </main>
+  <aside class="ad ad-horizontal container"><span>PUBLICIDAD</span><strong>Espacio publicitario</strong><small>Banner responsive</small></aside>
+  <main class="container">
+    {siteSections.map((section, index) => {
+      const entries = newsForSection(news, section);
+      return <section class="section-block" id={section.toLowerCase()}>
+        <div class="section-heading"><p class="section-index">0{index + 1}</p><h2>{section}</h2><a href={sectionHref(section)}>Ver sección <span>→</span></a></div>
+        {entries.length ? <div class="section-rail">
+          {entries.map((entry) => <article class="story-card">
+            <a class="card-image image-frame" data-adaptive-image style={imageFrameStyle(entry)} href={`/noticias/${slugOf(entry)}/`}><img src={entry.data.image} alt="" loading="lazy" decoding="async" /></a>
+            <p class="eyebrow">{entry.data.primarySection}</p>
+            <h3><a href={`/noticias/${slugOf(entry)}/`}>{entry.data.title}</a></h3>
+            <time>{formatTime(entry.data.publishedAt)}</time>
+          </article>)}
+        </div> : <p class="section-rail-empty">Las próximas noticias de esta sección aparecerán acá.</p>}
+      </section>;
+    })}
+  </main>
+</BaseLayout>

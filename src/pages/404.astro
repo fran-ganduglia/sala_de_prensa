@@ -1,0 +1,14 @@
+---
+import Header from '../components/Header.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Página no encontrada | Sala de Prensa" description="La página que buscás no existe o fue movida." robots="noindex,follow">
+  <Header />
+  <main class="not-found container">
+    <p class="eyebrow">ERROR 404</p>
+    <h1>No encontramos esta página.</h1>
+    <p>Puede que el enlace esté incompleto, que la nota haya cambiado de dirección o que todavía no exista.</p>
+    <div><a class="not-found-primary" href="/">Volver a la portada</a><a href="/archivo/">Ver el archivo de noticias</a></div>
+  </main>
+</BaseLayout>
