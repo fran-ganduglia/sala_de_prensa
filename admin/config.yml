@@ -29,40 +29,28 @@ collections:
       - { label: Bajada, name: summary, widget: text, required: false, hint: "Opcional. Contexto breve para la portada y la nota." }
       - { label: Fecha y hora de publicación, name: publishedAt, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", date_format: "DD/MM/YYYY", time_format: "HH:mm", hint: "Se muestra en la web y alimenta Último momento." }
       - { label: Fecha y hora de actualización, name: updatedAt, widget: datetime, required: false, format: "YYYY-MM-DDTHH:mm:ssZ", date_format: "DD/MM/YYYY", time_format: "HH:mm" }
-      - label: Clasificación
-        name: classification
-        widget: object
+      - { label: Sección principal, name: primarySection, widget: select, required: false, options: [Actualidad, Política, Deportes, Cultura] }
+      - { label: Otras secciones, name: sections, widget: select, multiple: true, required: false, options: [Actualidad, Política, Deportes, Cultura], hint: "Una noticia puede aparecer en más de una sección." }
+      - { label: Etiquetas, name: tags, widget: list, required: false, hint: "Opcional. Sirven para búsqueda y recomendaciones." }
+      - { label: Rotular como urgente, name: urgent, widget: boolean, default: false, required: false }
+      - { label: Noticia principal, name: main, widget: boolean, default: false, required: false, hint: "Solo una debería estar activa." }
+      - { label: Destacar en portada, name: featured, widget: boolean, default: false, required: false }
+      - { label: Orden manual, name: homepageOrder, widget: number, default: 0, required: false, value_type: int, min: 0, hint: "Mayor número = mayor prioridad." }
+      - { label: Imagen principal, name: image, widget: image, required: false, choose_url: true }
+      - { label: Crédito de imagen, name: imageCredit, widget: string, required: false }
+      - label: Galería
+        name: gallery
+        widget: list
+        required: false
         fields:
-          - { label: Sección principal, name: primarySection, widget: select, required: false, options: [Actualidad, Política, Deportes, Cultura] }
-          - { label: Otras secciones, name: sections, widget: select, multiple: true, required: false, options: [Actualidad, Política, Deportes, Cultura], hint: "Una noticia puede aparecer en más de una sección." }
-          - { label: Etiquetas, name: tags, widget: list, required: false, hint: "Opcional. Sirven para búsqueda y recomendaciones." }
-      - label: Portada
-        name: placement
-        widget: object
+          - { label: Imagen, name: image, widget: image, choose_url: true }
+          - { label: Epígrafe, name: caption, widget: string, required: false }
+      - label: Videos
+        name: videos
+        widget: list
+        required: false
         fields:
-          - { label: Rotular como urgente, name: urgent, widget: boolean, default: false, required: false }
-          - { label: Noticia principal, name: main, widget: boolean, default: false, required: false, hint: "Solo una debería estar activa." }
-          - { label: Destacar en portada, name: featured, widget: boolean, default: false, required: false }
-          - { label: Orden manual, name: homepageOrder, widget: number, default: 0, required: false, value_type: int, min: 0, hint: "Mayor número = mayor prioridad." }
-      - label: Multimedia
-        name: media
-        widget: object
-        fields:
-          - { label: Imagen principal, name: image, widget: image, required: false, choose_url: true }
-          - { label: Crédito de imagen, name: imageCredit, widget: string, required: false }
-          - label: Galería
-            name: gallery
-            widget: list
-            required: false
-            fields:
-              - { label: Imagen, name: image, widget: image, choose_url: true }
-              - { label: Epígrafe, name: caption, widget: string, required: false }
-          - label: Videos
-            name: videos
-            widget: list
-            required: false
-            fields:
-              - { label: Tipo, name: type, widget: select, options: [Archivo propio, YouTube, Instagram] }
-              - { label: Enlace o archivo, name: url, widget: string, required: false, hint: "Pegá una URL de YouTube/Instagram o la ruta del archivo propio." }
-              - { label: Descripción, name: caption, widget: string, required: false }
+          - { label: Tipo, name: type, widget: select, options: [Archivo propio, YouTube, Instagram] }
+          - { label: Enlace o archivo, name: url, widget: string, required: false, hint: "Pegá una URL de YouTube/Instagram o la ruta del archivo propio." }
+          - { label: Descripción, name: caption, widget: string, required: false }
       - { label: Cuerpo de la noticia, name: body, widget: markdown, required: false, hint: "Opcional. Podés publicar una actualización breve, texto extenso o solo multimedia." }

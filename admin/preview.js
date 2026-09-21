@@ -16,6 +16,12 @@
     return item && item.toJS ? item.toJS() : {};
   }
 
+  function list(entry, key, fallback) {
+    var item = entry.getIn(['data', key]);
+    var items = item && item.toJS ? item.toJS() : item;
+    return Array.isArray(items) ? items : (fallback || []);
+  }
+
   function assetUrl(component, path) {
     try {
       var asset = path && component.props.getAsset(path);
@@ -39,12 +45,15 @@
       var placement = object(entry, 'placement');
       var classification = object(entry, 'classification');
       var media = object(entry, 'media');
+      var primarySection = value(entry, 'primarySection', classification.primarySection || 'ACTUALIDAD');
       var title = value(entry, 'title', 'Titular de la noticia');
       var summary = value(entry, 'summary', 'La bajada aparecerá aquí si la cargás.');
       var publishedAt = value(entry, 'publishedAt', 'Fecha y hora de publicación');
-      var image = assetUrl(this, media.image);
-      var gallery = Array.isArray(media.gallery) ? media.gallery : [];
-      var videos = Array.isArray(media.videos) ? media.videos : [];
+      var image = assetUrl(this, value(entry, 'image', media.image || ''));
+      var imageCredit = value(entry, 'imageCredit', media.imageCredit || '');
+      var gallery = list(entry, 'gallery', media.gallery);
+      var videos = list(entry, 'videos', media.videos);
+      var urgent = entry.getIn(['data', 'urgent']) === true || placement.urgent === true;
       var body = this.props.widgetFor('body');
 
       return h('div', { className: 'preview-root' },
@@ -54,17 +63,17 @@
             h('b', {}, 'SALA DE PRENSA'),
             h('span', {}, 'ACTUALIDAD · POLÍTICA · DEPORTES · CULTURA')
           ),
-          h('nav', { className: 'preview-breadcrumb' }, 'Inicio / ', classification.primarySection || 'Actualidad'),
+          h('nav', { className: 'preview-breadcrumb' }, 'Inicio / ', primarySection),
           h('div', { className: 'preview-kicker' },
-            h('span', {}, classification.primarySection || 'ACTUALIDAD'),
-            placement.urgent && h('span', { className: 'preview-urgent' }, 'URGENTE')
+            h('span', {}, primarySection),
+            urgent && h('span', { className: 'preview-urgent' }, 'URGENTE')
           ),
           h('h1', {}, title),
           h('p', { className: 'preview-summary' }, summary),
           h('p', { className: 'preview-meta' }, publishedAt),
           image && h('figure', { className: 'preview-figure' },
             h('img', { src: image, alt: '' }),
-            media.imageCredit && h('figcaption', {}, media.imageCredit)
+            imageCredit && h('figcaption', {}, imageCredit)
           ),
           body ? h('div', { className: 'preview-body' }, body) : h('p', { className: 'preview-empty' }, 'El cuerpo de la noticia aparecerá aquí.'),
           gallery.length > 0 && h('section', { className: 'preview-gallery' },
