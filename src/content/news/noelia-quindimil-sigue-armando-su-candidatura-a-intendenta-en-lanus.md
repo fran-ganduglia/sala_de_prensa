@@ -4,6 +4,7 @@ summary: Con reuniones de referentes y dirigentes políticos de Lanús, Noelia
   tiene una agenda frondosa que trabajar.
 publishedAt: 2026-09-21T00:27:00-03:00
 updatedAt: 2026-09-21T00:27:00-03:00
+primarySection: Política
 image: /uploads/whatsapp-image-2026-09-21-at-13.38.06.jpeg
 ---
 Noelia se muestra entusiasmada ante la posibilidad de competir por la Intendencia de Lanús y observa, de cara a los próximos meses, dos escenarios que podrían fortalecer una eventual candidatura.
