@@ -36,7 +36,10 @@ const home = defineCollection({
   loader: glob({ pattern: '**/*.yml', base: './src/content/home' }),
   schema: z.object({
     main: z.string().optional(),
-    urgent: z.string().optional(),
+    urgent: z.preprocess(
+      (value) => Array.isArray(value) && value.length === 0 ? undefined : value,
+      z.string().optional(),
+    ),
     featured: z.array(z.object({ story: z.string() })).default([]),
   }),
 });
