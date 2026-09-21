@@ -47,14 +47,15 @@
         title: String(collectionValue(data, 'title', 'Titular de la noticia')),
         summary: String(collectionValue(data, 'summary', '')),
         section: String(collectionValue(data, 'primarySection', 'ACTUALIDAD')),
-        image: String(collectionValue(data, 'image', ''))
+        image: String(collectionValue(data, 'image', '')),
+        imagePosition: String(collectionValue(data, 'imagePosition', '50% 50%'))
       };
     }).filter(function (story) { return story.slug; });
   }
 
   function previewImage(component, story, className) {
     var image = story && (assetUrl(component, story.image) || story.image);
-    return image ? h('img', { className: className, src: image, alt: '' }) : h('div', { className: className + ' homepage-preview-placeholder' });
+    return image ? h('img', { className: className, src: image, alt: '', style: { objectPosition: story.imagePosition || '50% 50%' } }) : h('div', { className: className + ' homepage-preview-placeholder' });
   }
 
   function device(component) {
@@ -76,6 +77,7 @@
       var summary = value(entry, 'summary', 'La bajada aparecerá aquí si la cargás.');
       var publishedAt = value(entry, 'publishedAt', 'Fecha y hora de publicación');
       var image = assetUrl(this, value(entry, 'image', media.image || ''));
+      var imagePosition = value(entry, 'imagePosition', media.imagePosition || '50% 50%');
       var imageCredit = value(entry, 'imageCredit', media.imageCredit || '');
       var gallery = list(entry, 'gallery', media.gallery);
       var videos = list(entry, 'videos', media.videos);
@@ -98,7 +100,7 @@
           h('p', { className: 'preview-summary' }, summary),
           h('p', { className: 'preview-meta' }, publishedAt),
           image && h('figure', { className: 'preview-figure' },
-            h('img', { src: image, alt: '' }),
+            h('img', { src: image, alt: '', style: { objectPosition: imagePosition } }),
             imageCredit && h('figcaption', {}, imageCredit)
           ),
           body ? h('div', { className: 'preview-body' }, body) : h('p', { className: 'preview-empty' }, 'El cuerpo de la noticia aparecerá aquí.'),

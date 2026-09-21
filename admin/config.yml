@@ -33,6 +33,22 @@ collections:
       - { label: Otras secciones, name: sections, widget: select, multiple: true, required: false, options: [Actualidad, Política, Deportes, Cultura], hint: "Una noticia puede aparecer en más de una sección." }
       - { label: Etiquetas, name: tags, widget: list, required: false, hint: "Opcional. Sirven para búsqueda y recomendaciones." }
       - { label: Imagen principal, name: image, widget: image, required: false, choose_url: true }
+      - label: Encuadre en portada
+        name: imagePosition
+        widget: select
+        required: false
+        default: "50% 50%"
+        hint: "Si la foto se recorta para llenar una tarjeta, elegí la zona que querés conservar. La foto original no se modifica."
+        options:
+          - { label: "Arriba a la izquierda", value: "0% 0%" }
+          - { label: "Arriba al centro", value: "50% 0%" }
+          - { label: "Arriba a la derecha", value: "100% 0%" }
+          - { label: "Centro a la izquierda", value: "0% 50%" }
+          - { label: "Centro (recomendado)", value: "50% 50%" }
+          - { label: "Centro a la derecha", value: "100% 50%" }
+          - { label: "Abajo a la izquierda", value: "0% 100%" }
+          - { label: "Abajo al centro", value: "50% 100%" }
+          - { label: "Abajo a la derecha", value: "100% 100%" }
       - { label: Crédito de imagen, name: imageCredit, widget: string, required: false }
       - label: Galería
         name: gallery

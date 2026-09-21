@@ -24,6 +24,7 @@ const news = defineCollection({
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
     image: z.string().optional(),
+    imagePosition: z.string().optional(),
     imageCredit: z.string().optional(),
     gallery: z.array(z.object({ image: z.string(), caption: z.string().optional() })).default([]),
     videos: z.array(video).default([]),
