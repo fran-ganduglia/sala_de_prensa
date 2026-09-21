@@ -2,7 +2,7 @@
   # The public newspaper and the independent CMS panel use this repository.
   # In the CMS Netlify site set NETLIFY_SITE_MODE=admin; it then publishes
   # the static files in admin/. The public site keeps the Astro build.
-  command = "if [ \"$NETLIFY_SITE_MODE\" = \"admin\" ]; then mkdir -p dist && cp admin/index.html admin/config.yml admin/preview.js admin/preview.css admin/admin.css admin/_headers dist/; else npm run build; fi"
+  command = "if [ \"$NETLIFY_SITE_MODE\" = \"admin\" ]; then mkdir -p dist && cp index.html config.yml preview.js preview.css admin.css _headers dist/; else npm run build; fi"
   publish = "dist"
 
 [build.environment]
