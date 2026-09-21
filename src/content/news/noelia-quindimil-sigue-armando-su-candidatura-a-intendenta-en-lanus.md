@@ -6,6 +6,14 @@ publishedAt: 2026-09-21T00:27:00-03:00
 updatedAt: 2026-09-21T00:27:00-03:00
 image: /uploads/whatsapp-image-2026-09-21-at-13.38.06.jpeg
 ---
-Noelia está muy entusiasmada con su candidatura a Intendenta, porque ve dos opciones posibles a desarrollarse de acá a fin de año, la primera es que arme políticamente la vía del medio de la polarización Cristina/Kicillof – Milei, en ese armado se asoma el Pastor Dante Guebel, Jorge Britos y Daniel Hadad trabajado políticamente por Emilio Monzo, donde ella cree que sería la candidata ideal para representar dicha expresión que estarían apoyadas por los distintos desencantos de sectores políticos los peronistas tradicionales, los desahuciados por Julián Álvarez, actual intendente de Lanús, los que votaron al pro y no quieren a los libertarios y así podría seguir nombrando distintos segmento que podría llegar representa Noelia.
-El punto segundo que ve con entusiasmo, es la cantidad de funcionario que fueron y compartieron la Gestión de Grindetti, que a raíz de la nota de Sala de Prensa que publico días atrás su posible candidatura, se le acercara para brindar su apoyo, de hecho ella hace el chiste que ya tendría armado su gabinete se le tocaría gobernar.
-A propósito del armado de gabinete, la pregunta que se hacen todos, Salvador Baratta seria quien ocuparía la Secretaria de Seguridad de Lanús si ganara Noelia.
+Noelia se muestra entusiasmada ante la posibilidad de competir por la Intendencia de Lanús y observa, de cara a los próximos meses, dos escenarios que podrían fortalecer una eventual candidatura.
+
+El primero está relacionado con la construcción de un espacio político que busque ubicarse por fuera de la polarización entre el peronismo referenciado en Cristina Kirchner y Axel Kicillof, y La Libertad Avanza de Javier Milei. Dentro de ese posible armado aparecen nombres como el pastor Dante Gebel, Jorge Britos y Daniel Hadad, con Emilio Monzó como uno de los dirigentes vinculados a su construcción política.
+
+En ese escenario, Noelia considera que podría convertirse en una candidata capaz de representar a distintos sectores del electorado de Lanús que actualmente no encuentran una referencia política clara. Allí podrían confluir sectores del peronismo tradicional, dirigentes y votantes desencantados con la gestión del actual intendente Julián Álvarez, antiguos votantes del PRO que no se sienten identificados con los libertarios y otros segmentos que buscan una alternativa local.
+
+El segundo elemento que genera entusiasmo en su entorno tiene que ver con el acercamiento de exfuncionarios que formaron parte de la gestión de Néstor Grindetti. Según trascendió, luego de que Sala de Prensa publicara días atrás una nota sobre su posible candidatura, varios de ellos se habrían comunicado para expresarle su apoyo.
+
+La propia Noelia incluso bromea con que, a partir de esos acercamientos, ya podría comenzar a conformar el gabinete de un eventual gobierno municipal.
+
+Y justamente alrededor de ese posible gabinete comienza a circular una pregunta dentro de la política de Lanús: en caso de que Noelia llegue a la Intendencia, ¿Salvador Baratta sería el elegido para ocupar la Secretaría de Seguridad?
