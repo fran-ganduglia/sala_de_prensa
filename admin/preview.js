@@ -38,7 +38,7 @@
   }
 
   function collectionStories(entries) {
-    var items = entries && entries.toArray ? entries.toArray() : (Array.isArray(entries) ? entries : []);
+    var items = entries && entries.valueSeq ? entries.valueSeq().toArray() : (entries && entries.toArray ? entries.toArray() : (Array.isArray(entries) ? entries : []));
     return items.map(function (item) {
       var data = collectionValue(item, 'data', {});
       var slug = String(collectionValue(item, 'slug', collectionValue(item, 'path', ''))).replace(/^.*\//, '').replace(/\.md$/, '');
