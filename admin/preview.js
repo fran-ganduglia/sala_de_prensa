@@ -173,8 +173,7 @@
       Promise.all([
         Promise.all(slugs.map(function (slug) {
           return this.props.getCollection('news', slug).then(function (result) {
-            var item = collectionItems(result)[0];
-            return item ? storyFromData(slug, collectionValue(item, 'data', {})) : null;
+            return storyFromData(slug, collectionValue(result, 'data', {}));
           });
         }, this)),
         this.props.getCollection('news').then(collectionStories)
