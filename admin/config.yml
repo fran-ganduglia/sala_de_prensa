@@ -64,7 +64,7 @@ collections:
             collection: news
             search_fields: [title]
             value_field: "{{slug}}"
-            display_fields: [title, primarySection, publishedAt]
+            display_fields: [title]
             options_length: 100
             hint: "La única nota que se muestra como principal en la portada."
           - label: Noticia urgente
@@ -74,13 +74,14 @@ collections:
             collection: news
             search_fields: [title]
             value_field: "{{slug}}"
-            display_fields: [title, primarySection, publishedAt]
+            display_fields: [title]
             options_length: 100
             hint: "Opcional. Esta selección controla la tira URGENTE, independientemente de la nota principal."
           - label: Noticias destacadas
             name: featured
             widget: list
             required: false
+            summary: "Destacada: {{fields.story}}"
             hint: "Agregá y reordená las notas. Las dos primeras se muestran junto a la noticia principal."
             fields:
               - label: Noticia
@@ -89,5 +90,5 @@ collections:
                 collection: news
                 search_fields: [title]
                 value_field: "{{slug}}"
-                display_fields: [title, primarySection, publishedAt]
+                display_fields: [title]
                 options_length: 100

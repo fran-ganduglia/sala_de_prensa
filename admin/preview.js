@@ -31,6 +31,32 @@
     }
   }
 
+  function collectionValue(item, key, fallback) {
+    if (!item) return fallback;
+    var value = item.get ? item.get(key) : item[key];
+    return value === undefined || value === null ? fallback : value;
+  }
+
+  function collectionStories(entries) {
+    var items = entries && entries.toArray ? entries.toArray() : (Array.isArray(entries) ? entries : []);
+    return items.map(function (item) {
+      var data = collectionValue(item, 'data', {});
+      var slug = String(collectionValue(item, 'slug', collectionValue(item, 'path', ''))).replace(/^.*\//, '').replace(/\.md$/, '');
+      return {
+        slug: slug,
+        title: String(collectionValue(data, 'title', 'Titular de la noticia')),
+        summary: String(collectionValue(data, 'summary', '')),
+        section: String(collectionValue(data, 'primarySection', 'ACTUALIDAD')),
+        image: String(collectionValue(data, 'image', ''))
+      };
+    }).filter(function (story) { return story.slug; });
+  }
+
+  function previewImage(component, story, className) {
+    var image = story && (assetUrl(component, story.image) || story.image);
+    return image ? h('img', { className: className, src: image, alt: '' }) : h('div', { className: className + ' homepage-preview-placeholder' });
+  }
+
   function device(component) {
     return h('div', { className: 'preview-device-selector', role: 'group', 'aria-label': 'Vista previa' },
       h('button', { className: component.state.device === 'desktop' ? 'is-active' : '', onClick: function () { component.setState({ device: 'desktop' }); } }, 'Escritorio'),
@@ -92,4 +118,53 @@
   });
 
   CMS.registerPreviewTemplate('news', Preview);
+
+  var HomepagePreview = createClass({
+    getInitialState: function () { return { device: 'desktop', stories: [], loading: true, error: false }; },
+    componentDidMount: function () {
+      this.props.getCollection('news').then(function (entries) {
+        this.setState({ stories: collectionStories(entries), loading: false });
+      }.bind(this)).catch(function () {
+        this.setState({ loading: false, error: true });
+      }.bind(this));
+    },
+    render: function () {
+      var entry = this.props.entry;
+      var mainSlug = value(entry, 'main', '');
+      var urgentSlug = value(entry, 'urgent', '');
+      var featuredSlugs = list(entry, 'featured', []).map(function (item) { return item.story; }).filter(Boolean);
+      var stories = this.state.stories;
+      var findStory = function (slug) { return stories.filter(function (story) { return story.slug === slug; })[0]; };
+      var main = findStory(mainSlug);
+      var urgent = findStory(urgentSlug);
+      var featured = featuredSlugs.map(findStory).filter(Boolean).filter(function (story) { return !main || story.slug !== main.slug; }).slice(0, 2);
+      var latest = stories.filter(function (story) { return !main || story.slug !== main.slug; }).slice(0, 3);
+
+      return h('div', { className: 'preview-root' },
+        device(this),
+        h('div', { className: 'homepage-preview homepage-preview--' + this.state.device },
+          h('header', { className: 'homepage-preview-header' }, h('b', {}, 'SALA DE PRENSA'), h('span', {}, 'ACTUALIDAD · POLÍTICA · DEPORTES · CULTURA')),
+          this.state.loading && h('p', { className: 'homepage-preview-status' }, 'Cargando las noticias para la vista previa…'),
+          this.state.error && h('p', { className: 'homepage-preview-status' }, 'No pudimos cargar las noticias. Guardá y recargá el panel para reintentar.'),
+          !this.state.loading && !this.state.error && h('div', {},
+            urgent && h('div', { className: 'homepage-preview-urgent' }, h('b', {}, 'URGENTE'), h('span', {}, urgent.title)),
+            h('div', { className: 'homepage-preview-grid' },
+              main ? h('article', { className: 'homepage-preview-main' },
+                previewImage(this, main, 'homepage-preview-main-image'),
+                h('p', { className: 'preview-category' }, main.section),
+                h('h1', {}, main.title),
+                main.summary && h('p', { className: 'homepage-preview-summary' }, main.summary)
+              ) : h('div', { className: 'homepage-preview-empty' }, 'Elegí una noticia principal para verla acá.'),
+              h('div', { className: 'homepage-preview-featured' }, featured.length ? featured.map(function (story) {
+                return h('article', { key: story.slug }, previewImage(this, story, 'homepage-preview-card-image'), h('p', { className: 'preview-category' }, story.section), h('h2', {}, story.title));
+              }, this) : h('div', { className: 'homepage-preview-empty' }, 'Agregá noticias destacadas para completar este bloque.')),
+              h('aside', { className: 'homepage-preview-latest' }, h('h2', {}, 'Último momento'), latest.map(function (story) { return h('p', { key: story.slug }, story.title); }))
+            )
+          )
+        )
+      );
+    }
+  });
+
+  CMS.registerPreviewTemplate('portada', HomepagePreview);
 }());
