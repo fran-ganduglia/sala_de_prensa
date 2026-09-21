@@ -16,7 +16,7 @@ function escapeXml(value: string) {
 }
 
 export const GET: APIRoute = async ({ site }) => {
-  const siteUrl = site || new URL("https://lanusaladeprensa.netlify.app/");
+  const siteUrl = site || new URL("https://lanusaladeprensa.com/");
   const news = await getNews();
   const staticPaths = ["/", "/privacidad/", ...siteSections.map(sectionHref)];
   const urls = [

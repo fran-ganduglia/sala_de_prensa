@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 
 export const GET: APIRoute = ({ site }) => {
-  const siteUrl = site?.href || "https://lanusaladeprensa.netlify.app/";
+  const siteUrl = site?.href || "https://lanusaladeprensa.com/";
   const origin = siteUrl.replace(/\/$/, "");
 
   return new Response(
