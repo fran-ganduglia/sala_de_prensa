@@ -83,6 +83,21 @@ loadWeather();
 setInterval(rotateWeather, 3800);
 setInterval(loadWeather, 15 * 60 * 1000);
 
+function adaptImageFrames() {
+  document.querySelectorAll('[data-adaptive-image]').forEach(frame => {
+    const image = frame.querySelector('img');
+    if (!image) return;
+    const updateFrame = () => {
+      if (!image.naturalWidth || !image.naturalHeight) return;
+      frame.classList.toggle('has-blurred-bands', image.naturalWidth / image.naturalHeight < 1.6);
+    };
+    if (image.complete) updateFrame();
+    else image.addEventListener('load', updateFrame, { once: true });
+  });
+}
+
+adaptImageFrames();
+
 const dialog = document.querySelector('#search-dialog');
 const searchInput = document.querySelector('#search-input');
 const status = document.querySelector('#search-status');

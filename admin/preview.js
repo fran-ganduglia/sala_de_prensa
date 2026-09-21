@@ -168,5 +168,5 @@
     }
   });
 
-  CMS.registerPreviewTemplate('portada', HomepagePreview);
+  CMS.registerPreviewTemplate('homepage', HomepagePreview);
 }());

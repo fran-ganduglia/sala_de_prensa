@@ -75,3 +75,6 @@ a { color:inherit; text-decoration:none; } button { font:inherit; cursor:pointer
 .legal-content a { color:var(--red); font-weight:700; text-decoration:underline; text-underline-offset:3px; }
 .legal-contact { border-bottom:1px solid var(--line); }
 @media (max-width:680px) { .legal-page { padding:32px 0 48px; }.legal-hero { padding-bottom:22px; }.legal-content { margin-top:26px; }.legal-intro { font-size:17px; }.legal-content section { padding:21px 0; }.legal-content h2 { font-size:21px; }.legal-content p { font-size:15px; line-height:1.65; } }
+
+/* Las fotos no panorámicas se muestran completas sobre una copia desenfocada. */
+.image-frame{isolation:isolate;overflow:hidden;position:relative;background:#e4e3df}.image-frame::before{background:var(--image) var(--image-position,50% 50%)/cover no-repeat;content:'';inset:-18px;opacity:0;position:absolute;transform:scale(1.1);transition:opacity .15s;z-index:0;filter:blur(18px)}.image-frame>img{display:block;height:100%;object-fit:cover;object-position:var(--image-position,50% 50%);position:relative;width:100%;z-index:1}.image-frame.has-blurred-bands::before{opacity:1}.image-frame.has-blurred-bands>img{object-fit:contain}
