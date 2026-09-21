@@ -12,7 +12,7 @@ const currentSection = sectionFromSlug(sectionSlug(section)) || 'Actualidad';
 const entries = newsForSection(await getNews(), currentSection);
 const imageFrameStyle = (entry: typeof entries[number]) => `--image:url('${entry.data.image}');--image-position:${imagePosition(entry.data.imagePosition)}`;
 ---
-<BaseLayout title={`${currentSection} | Sala de Prensa`} description={`Últimas noticias de ${currentSection} en Sala de Prensa.`}>
+<BaseLayout title={`${currentSection} | Sala de Prensa`} description={`Últimas noticias de ${currentSection} en Sala de Prensa.`} image={entries[0]?.data.image} imageAlt={entries[0]?.data.title}>
   <Header active={currentSection} />
   <main class="section-page container">
     <header class="section-page-header"><p class="eyebrow">SALA DE PRENSA</p><h1>{currentSection}</h1><p>Las últimas noticias de {currentSection.toLowerCase()}.</p></header>
