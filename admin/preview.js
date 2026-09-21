@@ -52,6 +52,14 @@
     return String(reference.slug || reference.value || reference.path || '');
   }
 
+  function urgentAlert(entry) {
+    var alert = entry.getIn(['data', 'urgent']);
+    if (!alert) return { text: '', story: '' };
+    if (alert.get) return { text: String(alert.get('text') || ''), story: relationSlug(alert.get('story')) };
+    if (typeof alert === 'object') return { text: String(alert.text || ''), story: relationSlug(alert.story) };
+    return { text: '', story: relationSlug(alert) };
+  }
+
   function relationStory(component, field, slug) {
     if (!slug || !component.props.fieldsMetaData) return null;
     var metadata = component.props.fieldsMetaData;
@@ -156,7 +164,7 @@
     getInitialState: function () { return { device: 'desktop', stories: [], latest: [], loading: true, error: false }; },
     selectedSlugs: function (entry) {
       var main = relationSlug(entry.getIn(['data', 'main']));
-      var urgent = relationSlug(entry.getIn(['data', 'urgent']));
+      var urgent = urgentAlert(entry).story;
       var featured = list(entry, 'featured', []).map(function (item) { return relationSlug(item.story); });
       return [main, urgent].concat(featured).filter(Boolean).filter(function (slug, index, slugs) { return slugs.indexOf(slug) === index; });
     },
@@ -164,8 +172,7 @@
       var entry = this.props.entry;
       var slugs = this.selectedSlugs(entry);
       var localStories = [
-        relationStory(this, 'main', relationSlug(entry.getIn(['data', 'main']))),
-        relationStory(this, 'urgent', relationSlug(entry.getIn(['data', 'urgent'])))
+        relationStory(this, 'main', relationSlug(entry.getIn(['data', 'main'])))
       ].concat(list(entry, 'featured', []).map(function (item) {
         return relationStory(this, 'featured', relationSlug(item.story));
       }, this)).filter(Boolean);
@@ -196,12 +203,14 @@
     render: function () {
       var entry = this.props.entry;
       var mainSlug = relationSlug(entry.getIn(['data', 'main']));
-      var urgentSlug = relationSlug(entry.getIn(['data', 'urgent']));
+      var alert = urgentAlert(entry);
+      var urgentSlug = alert.story;
       var featuredSlugs = list(entry, 'featured', []).map(function (item) { return relationSlug(item.story); }).filter(Boolean);
       var stories = this.state.stories;
       var findStory = function (slug) { return stories.filter(function (story) { return story.slug === slug; })[0]; };
       var main = findStory(mainSlug);
       var urgent = findStory(urgentSlug);
+      var urgentMessage = alert.text || (urgent && urgent.title);
       var featured = featuredSlugs.map(findStory).filter(Boolean).filter(function (story) { return !main || story.slug !== main.slug; }).slice(0, 2);
       var latest = this.state.latest.filter(function (story) { return !main || story.title !== main.title; }).slice(0, 3);
 
@@ -212,7 +221,7 @@
           this.state.loading && h('p', { className: 'homepage-preview-status' }, 'Cargando las noticias para la vista previa…'),
           this.state.error && h('p', { className: 'homepage-preview-status' }, 'No pudimos cargar las noticias. Guardá y recargá el panel para reintentar.'),
           !this.state.loading && !this.state.error && h('div', {},
-            urgent && h('div', { className: 'homepage-preview-urgent' }, h('b', {}, 'URGENTE'), h('span', {}, urgent.title)),
+            urgentMessage && h('div', { className: 'homepage-preview-urgent' }, h('b', {}, 'URGENTE'), h('span', {}, urgentMessage)),
             h('div', { className: 'homepage-preview-grid' },
               main ? h('article', { className: 'homepage-preview-main' },
                 previewImage(this, main, 'homepage-preview-main-image'),

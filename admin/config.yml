@@ -85,16 +85,28 @@ collections:
             display_fields: [title]
             options_length: 100
             hint: "La única nota que se muestra como principal en la portada."
-          - label: Noticia urgente
+          - label: Alerta urgente
             name: urgent
-            widget: relation
+            widget: object
             required: false
-            collection: news
-            search_fields: [title]
-            value_field: "{{slug}}"
-            display_fields: [title]
-            options_length: 100
-            hint: "Opcional. Esta selección controla la tira URGENTE, independientemente de la nota principal."
+            collapsed: false
+            hint: "Podés publicar un aviso independiente o vincularlo a una noticia."
+            fields:
+              - label: Texto de la alerta
+                name: text
+                widget: string
+                required: false
+                hint: "Ejemplo: Alerta por tormentas fuertes en Lanús. Si no vinculás una nota, este texto se muestra sin enlace."
+              - label: Noticia vinculada
+                name: story
+                widget: relation
+                required: false
+                collection: news
+                search_fields: [title]
+                value_field: "{{slug}}"
+                display_fields: [title]
+                options_length: 100
+                hint: "Opcional. Si solo elegís una noticia, se muestra su título y enlaza a esa nota."
           - label: Noticias destacadas
             name: featured
             widget: list

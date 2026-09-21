@@ -8,7 +8,10 @@ const news = await getNews();
 const homepage = await getEntry('home', 'portada');
 const storyBySlug = (slug?: string) => news.find((entry) => slugOf(entry) === slug);
 const main = storyBySlug(homepage?.data.main) || news[0];
-const urgent = storyBySlug(homepage?.data.urgent);
+const urgentConfig = homepage?.data.urgent;
+const urgentStory = storyBySlug(typeof urgentConfig === 'string' ? urgentConfig : urgentConfig?.story);
+const urgentText = typeof urgentConfig === 'object' ? urgentConfig?.text?.trim() : undefined;
+const urgentMessage = urgentText || urgentStory?.data.title;
 const featured = homepage?.data.featured
   .map(({ story }) => storyBySlug(story))
   .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry) && entry.id !== main?.id)
@@ -20,9 +23,9 @@ const imageFrameStyle = (entry: typeof news[number]) => `--image:url('${entry.da
 <BaseLayout title="Sala de Prensa | La voz del pueblo" description="Actualidad, política, deportes y cultura de Lanús." image={main?.data.image} imageAlt={main?.data.imageAlt || main?.data.title}>
   <Header />
   <main class="container">
-    <section class="urgent-strip" aria-label="Noticias urgentes">
-      {urgent && <><span class="urgent-badge">URGENTE</span><a href={`/noticias/${slugOf(urgent)}/`}>{urgent.data.title}</a></>}
-    </section>
+    {urgentMessage && <section class="urgent-strip" aria-label="Alerta urgente">
+      <span class="urgent-badge">URGENTE</span>{urgentStory ? <a href={`/noticias/${slugOf(urgentStory)}/`}>{urgentMessage}</a> : <p>{urgentMessage}</p>}
+    </section>}
     {main && <section class="front-grid" id="actualidad">
       <article class="lead-story">
         <a class="story-image image-frame" data-adaptive-image style={imageFrameStyle(main)} href={`/noticias/${slugOf(main)}/`}>

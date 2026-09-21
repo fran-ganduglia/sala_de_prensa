@@ -38,7 +38,13 @@ const home = defineCollection({
     main: z.string().optional(),
     urgent: z.preprocess(
       (value) => Array.isArray(value) && value.length === 0 ? undefined : value,
-      z.string().optional(),
+      z.union([
+        z.string(),
+        z.object({
+          text: z.string().optional(),
+          story: z.string().optional(),
+        }),
+      ]).optional(),
     ),
     featured: z.array(z.object({ story: z.string() })).default([]),
   }),
