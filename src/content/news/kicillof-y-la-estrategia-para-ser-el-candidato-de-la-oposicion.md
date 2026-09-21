@@ -1,5 +1,5 @@
 ---
-title: " KICILLOF Y LA ESTRATEGIA PARA SER EL CANDIDATO DE LA OPOSICIÓN "
+title: Kicillof y la estrategia para ser candidato de la oposición
 summary: Tras el plenario federal encabezado por Axel Kicillof, el Movimiento
   Derecho al Futuro (MDF) impulsa la creación de un frente amplio y popular de
   cara a las elecciones de 2027.
