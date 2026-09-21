@@ -37,20 +37,23 @@
     return value === undefined || value === null ? fallback : value;
   }
 
+  function storyFromData(slug, data) {
+    return {
+      slug: slug,
+      title: String(collectionValue(data, 'title', 'Titular de la noticia')),
+      summary: String(collectionValue(data, 'summary', '')),
+      section: String(collectionValue(data, 'primarySection', 'ACTUALIDAD')),
+      image: String(collectionValue(data, 'image', '')),
+      imagePosition: String(collectionValue(data, 'imagePosition', '50% 50%'))
+    };
+  }
+
   function collectionStories(entries) {
     var items = entries && entries.valueSeq ? entries.valueSeq().toArray() : (entries && entries.toArray ? entries.toArray() : (Array.isArray(entries) ? entries : []));
     return items.map(function (item) {
       var data = collectionValue(item, 'data', {});
-      var slug = String(collectionValue(item, 'slug', collectionValue(item, 'path', ''))).replace(/^.*\//, '').replace(/\.md$/, '');
-      return {
-        slug: slug,
-        title: String(collectionValue(data, 'title', 'Titular de la noticia')),
-        summary: String(collectionValue(data, 'summary', '')),
-        section: String(collectionValue(data, 'primarySection', 'ACTUALIDAD')),
-        image: String(collectionValue(data, 'image', '')),
-        imagePosition: String(collectionValue(data, 'imagePosition', '50% 50%'))
-      };
-    }).filter(function (story) { return story.slug; });
+      return storyFromData('', data);
+    }).filter(function (story) { return story.title; });
   }
 
   function previewImage(component, story, className) {
@@ -122,13 +125,33 @@
   CMS.registerPreviewTemplate('news', Preview);
 
   var HomepagePreview = createClass({
-    getInitialState: function () { return { device: 'desktop', stories: [], loading: true, error: false }; },
-    componentDidMount: function () {
-      this.props.getCollection('news').then(function (entries) {
-        this.setState({ stories: collectionStories(entries), loading: false });
+    getInitialState: function () { return { device: 'desktop', stories: [], latest: [], loading: true, error: false }; },
+    selectedSlugs: function (entry) {
+      var main = value(entry, 'main', '');
+      var urgent = value(entry, 'urgent', '');
+      var featured = list(entry, 'featured', []).map(function (item) { return item.story; });
+      return [main, urgent].concat(featured).filter(Boolean).filter(function (slug, index, slugs) { return slugs.indexOf(slug) === index; });
+    },
+    loadStories: function () {
+      var entry = this.props.entry;
+      var slugs = this.selectedSlugs(entry);
+      this.setState({ loading: true, error: false });
+      Promise.all([
+        Promise.all(slugs.map(function (slug) {
+          return this.props.getCollection('news', slug).then(function (item) {
+            return storyFromData(slug, collectionValue(item, 'data', {}));
+          });
+        }, this)),
+        this.props.getCollection('news').then(collectionStories)
+      ]).then(function (results) {
+        this.setState({ stories: results[0], latest: results[1], loading: false });
       }.bind(this)).catch(function () {
         this.setState({ loading: false, error: true });
       }.bind(this));
+    },
+    componentDidMount: function () { this.loadStories(); },
+    componentDidUpdate: function (previousProps) {
+      if (this.selectedSlugs(previousProps.entry).join('|') !== this.selectedSlugs(this.props.entry).join('|')) this.loadStories();
     },
     render: function () {
       var entry = this.props.entry;
@@ -140,7 +163,7 @@
       var main = findStory(mainSlug);
       var urgent = findStory(urgentSlug);
       var featured = featuredSlugs.map(findStory).filter(Boolean).filter(function (story) { return !main || story.slug !== main.slug; }).slice(0, 2);
-      var latest = stories.filter(function (story) { return !main || story.slug !== main.slug; }).slice(0, 3);
+      var latest = this.state.latest.filter(function (story) { return !main || story.title !== main.title; }).slice(0, 3);
 
       return h('div', { className: 'preview-root' },
         device(this),

@@ -18,7 +18,7 @@ const news = defineCollection({
   }, z.object({
     title: z.string().min(1),
     summary: z.string().optional().default(''),
-    primarySection: z.string().optional(),
+    primarySection: z.string().default('Actualidad'),
     sections: z.array(z.string()).default([]),
     tags: z.array(z.string()).default([]),
     publishedAt: z.coerce.date(),

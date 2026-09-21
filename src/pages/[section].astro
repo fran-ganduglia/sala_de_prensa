@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import { getNews, imagePosition, newsForSection, sectionFromSlug, sectionSlug, siteSections, slugOf, formatDate, type SiteSection } from '../lib/news';
+
+export async function getStaticPaths() {
+  return siteSections.map((section) => ({ params: { section: sectionSlug(section) }, props: { section } }));
+}
+
+const { section } = Astro.props as { section: SiteSection };
+const currentSection = sectionFromSlug(sectionSlug(section)) || 'Actualidad';
+const entries = newsForSection(await getNews(), currentSection);
+const imageFrameStyle = (entry: typeof entries[number]) => `--image:url('${entry.data.image}');--image-position:${imagePosition(entry.data.imagePosition)}`;
+---
+<BaseLayout title={`${currentSection} | Sala de Prensa`} description={`Últimas noticias de ${currentSection} en Sala de Prensa.`}>
+  <Header active={currentSection} />
+  <main class="section-page container">
+    <header class="section-page-header"><p class="eyebrow">SALA DE PRENSA</p><h1>{currentSection}</h1><p>Las últimas noticias de {currentSection.toLowerCase()}.</p></header>
+    {entries.length ? <div class="section-page-grid">{entries.map((entry) => <article class="section-page-card"><a class="section-page-image image-frame" data-adaptive-image style={imageFrameStyle(entry)} href={`/noticias/${slugOf(entry)}/`}><img src={entry.data.image} alt="" loading="lazy" /></a><p class="eyebrow">{entry.data.primarySection}</p><h2><a href={`/noticias/${slugOf(entry)}/`}>{entry.data.title}</a></h2>{entry.data.summary && <p>{entry.data.summary}</p>}<time>{formatDate(entry.data.publishedAt)}</time></article>)}</div> : <p class="section-page-empty">Todavía no hay noticias en esta sección.</p>}
+  </main>
+</BaseLayout>
