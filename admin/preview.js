@@ -37,6 +37,21 @@
     return value === undefined || value === null ? fallback : value;
   }
 
+  function collectionItems(result) {
+    if (!result) return [];
+    if (Array.isArray(result)) return result;
+    if (result.valueSeq) return result.valueSeq().toArray();
+    if (result.toArray) return result.toArray();
+    return [result];
+  }
+
+  function relationSlug(reference) {
+    if (reference === undefined || reference === null) return '';
+    if (typeof reference === 'string' || typeof reference === 'number') return String(reference);
+    if (reference.get) return String(reference.get('slug') || reference.get('value') || reference.get('path') || '');
+    return String(reference.slug || reference.value || reference.path || '');
+  }
+
   function storyFromData(slug, data) {
     return {
       slug: slug,
@@ -49,7 +64,7 @@
   }
 
   function collectionStories(entries) {
-    var items = entries && entries.valueSeq ? entries.valueSeq().toArray() : (entries && entries.toArray ? entries.toArray() : (Array.isArray(entries) ? entries : []));
+    var items = collectionItems(entries);
     return items.map(function (item) {
       var data = collectionValue(item, 'data', {});
       return storyFromData('', data);
@@ -127,9 +142,9 @@
   var HomepagePreview = createClass({
     getInitialState: function () { return { device: 'desktop', stories: [], latest: [], loading: true, error: false }; },
     selectedSlugs: function (entry) {
-      var main = value(entry, 'main', '');
-      var urgent = value(entry, 'urgent', '');
-      var featured = list(entry, 'featured', []).map(function (item) { return item.story; });
+      var main = relationSlug(entry.getIn(['data', 'main']));
+      var urgent = relationSlug(entry.getIn(['data', 'urgent']));
+      var featured = list(entry, 'featured', []).map(function (item) { return relationSlug(item.story); });
       return [main, urgent].concat(featured).filter(Boolean).filter(function (slug, index, slugs) { return slugs.indexOf(slug) === index; });
     },
     loadStories: function () {
@@ -138,8 +153,9 @@
       this.setState({ loading: true, error: false });
       Promise.all([
         Promise.all(slugs.map(function (slug) {
-          return this.props.getCollection('news', slug).then(function (item) {
-            return storyFromData(slug, collectionValue(item, 'data', {}));
+          return this.props.getCollection('news', slug).then(function (result) {
+            var item = collectionItems(result)[0];
+            return item ? storyFromData(slug, collectionValue(item, 'data', {})) : null;
           });
         }, this)),
         this.props.getCollection('news').then(collectionStories)
@@ -155,9 +171,9 @@
     },
     render: function () {
       var entry = this.props.entry;
-      var mainSlug = value(entry, 'main', '');
-      var urgentSlug = value(entry, 'urgent', '');
-      var featuredSlugs = list(entry, 'featured', []).map(function (item) { return item.story; }).filter(Boolean);
+      var mainSlug = relationSlug(entry.getIn(['data', 'main']));
+      var urgentSlug = relationSlug(entry.getIn(['data', 'urgent']));
+      var featuredSlugs = list(entry, 'featured', []).map(function (item) { return relationSlug(item.story); }).filter(Boolean);
       var stories = this.state.stories;
       var findStory = function (slug) { return stories.filter(function (story) { return story.slug === slug; })[0]; };
       var main = findStory(mainSlug);
