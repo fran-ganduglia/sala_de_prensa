@@ -57,6 +57,9 @@
     var metadata = component.props.fieldsMetaData;
     var item = metadata.getIn ? metadata.getIn([field, slug]) : null;
     if (!item && metadata.get) item = metadata.get(field);
+    if (item && !collectionValue(item, 'data', null)) {
+      item = item.get ? item.get(slug) : item[slug];
+    }
     if (!item) return null;
     var data = collectionValue(item, 'data', item);
     return storyFromData(slug, data);
@@ -163,7 +166,9 @@
       var localStories = [
         relationStory(this, 'main', relationSlug(entry.getIn(['data', 'main']))),
         relationStory(this, 'urgent', relationSlug(entry.getIn(['data', 'urgent'])))
-      ].filter(Boolean);
+      ].concat(list(entry, 'featured', []).map(function (item) {
+        return relationStory(this, 'featured', relationSlug(item.story));
+      }, this)).filter(Boolean);
       this.setState({ loading: true, error: false });
       Promise.all([
         Promise.all(slugs.map(function (slug) {
@@ -176,7 +181,9 @@
       ]).then(function (results) {
         var stories = results[0].filter(Boolean);
         localStories.forEach(function (story) {
-          if (!stories.some(function (loaded) { return loaded.slug === story.slug; })) stories.push(story);
+          var index = stories.findIndex(function (loaded) { return loaded.slug === story.slug; });
+          if (index === -1) stories.push(story);
+          else if (story.title !== 'Titular de la noticia') stories[index] = story;
         });
         this.setState({ stories: stories, latest: results[1], loading: false });
       }.bind(this)).catch(function () {
