@@ -2,7 +2,7 @@
 title: En el mes de Julio se llego al récord de 18% de morosidad en deudas
 summary: Un estudio de la Consultora EcoGO con la Universidad Austral arrojo
   esta sorpresiva cifra
-publishedAt: 1906-09-22T12:35:00-04:15
+publishedAt: 2026-09-22T15:30:00-03:00
 primarySection: Actualidad
 image: /uploads/dinero.jfif
 imagePosition: 50% 50%
