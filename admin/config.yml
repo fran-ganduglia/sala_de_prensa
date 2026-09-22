@@ -112,7 +112,7 @@ collections:
             widget: list
             required: false
             summary: "Destacada: {{fields.story}}"
-            hint: "Agregá y reordená las notas. Las dos primeras se muestran junto a la noticia principal."
+            hint: "Agregá y reordená las notas. Las tres primeras se muestran en escritorio y notebook; en móvil, las dos primeras. Si faltan, se completa con noticias recientes."
             fields:
               - label: Noticia
                 name: story

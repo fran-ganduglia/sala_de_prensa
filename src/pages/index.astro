@@ -13,10 +13,12 @@ const urgentConfig = homepage?.data.urgent;
 const urgentStory = storyBySlug(typeof urgentConfig === 'string' ? urgentConfig : urgentConfig?.story);
 const urgentText = typeof urgentConfig === 'object' ? urgentConfig?.text?.trim() : undefined;
 const urgentMessage = urgentText || urgentStory?.data.title;
-const featured = homepage?.data.featured
+const configuredFeatured = homepage?.data.featured
   .map(({ story }) => storyBySlug(story))
-  .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry) && entry.id !== main?.id)
-  .slice(0, 2) || news.filter((entry) => entry.id !== main?.id).slice(0, 2);
+  .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry) && entry.id !== main?.id) || [];
+const featured = [...configuredFeatured, ...news.filter((entry) => entry.id !== main?.id)]
+  .filter((entry, index, entries) => entries.findIndex((candidate) => candidate.id === entry.id) === index)
+  .slice(0, 3);
 const featuredIds = new Set([main?.id, ...featured.map((entry) => entry.id)]);
 const remainingNews = news.filter((entry) => !featuredIds.has(entry.id));
 const latest = news.slice(0, 5);
@@ -61,6 +63,7 @@ const imageFrameStyle = (entry: typeof news[number]) => `--image:url('${entry.da
   <main class="container home-news">
     <section aria-labelledby="todas-las-noticias">
       <div class="section-heading"><h2 id="todas-las-noticias">Todas las noticias</h2></div>
+      {featured[2] && <div class="mobile-extra-featured"><NewsGrid entries={[featured[2]]} /></div>}
       {remainingNews.length ? <NewsGrid entries={remainingNews} /> : <p class="section-page-empty">No hay más noticias publicadas.</p>}
     </section>
   </main>

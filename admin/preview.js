@@ -211,7 +211,7 @@
       var main = findStory(mainSlug);
       var urgent = findStory(urgentSlug);
       var urgentMessage = alert.text || (urgent && urgent.title);
-      var featured = featuredSlugs.map(findStory).filter(Boolean).filter(function (story) { return !main || story.slug !== main.slug; }).slice(0, 2);
+      var featured = featuredSlugs.map(findStory).filter(Boolean).filter(function (story) { return !main || story.slug !== main.slug; }).slice(0, 3);
       var latest = this.state.latest.filter(function (story) { return !main || story.title !== main.title; }).slice(0, 3);
 
       return h('div', { className: 'preview-root' },
