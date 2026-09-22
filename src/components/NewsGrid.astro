@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, imagePosition, slugOf } from '../lib/news';
+
+interface Props {
+  entries: CollectionEntry<'news'>[];
+}
+
+const { entries } = Astro.props;
+const imageFrameStyle = (entry: CollectionEntry<'news'>) => `--image:url('${entry.data.image}');--image-position:${imagePosition(entry.data.imagePosition)}`;
+---
+
+<div class="archive-page-grid">
+  {entries.map((entry) => <article class="archive-page-card">
+    <a class="archive-page-image image-frame" data-adaptive-image style={imageFrameStyle(entry)} href={`/noticias/${slugOf(entry)}/`}>
+      <img src={entry.data.image} alt="" loading="lazy" decoding="async" />
+    </a>
+    <p class="eyebrow">{entry.data.primarySection}</p>
+    <h2><a href={`/noticias/${slugOf(entry)}/`}>{entry.data.title}</a></h2>
+    {entry.data.summary && <p>{entry.data.summary}</p>}
+    <time datetime={entry.data.publishedAt.toISOString()}>{formatDate(entry.data.publishedAt)}</time>
+  </article>)}
+</div>

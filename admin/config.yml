@@ -29,7 +29,7 @@ collections:
       - { label: Bajada, name: summary, widget: text, required: false, hint: "Opcional. Contexto breve para la portada y la nota." }
       - { label: Fecha y hora de publicación, name: publishedAt, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", date_format: "DD/MM/YYYY", time_format: "HH:mm", hint: "Se muestra en la web y alimenta Último momento." }
       - { label: Fecha y hora de actualización, name: updatedAt, widget: datetime, required: false, format: "YYYY-MM-DDTHH:mm:ssZ", date_format: "DD/MM/YYYY", time_format: "HH:mm" }
-      - { label: Sección principal, name: primarySection, widget: select, default: Actualidad, options: [Actualidad, Política, Deportes, Cultura], hint: "Define en qué carril y página de sección aparecerá la noticia." }
+      - { label: Sección principal, name: primarySection, widget: select, default: Actualidad, options: [Actualidad, Política, Deportes, Cultura], hint: "Define la categoría y la página de sección donde aparecerá la noticia." }
       - { label: Otras secciones, name: sections, widget: select, multiple: true, required: false, options: [Actualidad, Política, Deportes, Cultura], hint: "Una noticia puede aparecer en más de una sección." }
       - { label: Etiquetas, name: tags, widget: list, required: false, hint: "Opcional. Sirven para búsqueda y recomendaciones." }
       - { label: Imagen principal, name: image, widget: image, required: false, choose_url: true }

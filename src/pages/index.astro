@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
+import NewsGrid from '../components/NewsGrid.astro';
 import { getEntry } from 'astro:content';
-import { getNews, imagePosition, newsForSection, sectionHref, siteSections, slugOf, formatTime } from '../lib/news';
+import { getNews, imagePosition, slugOf, formatTime } from '../lib/news';
 
 const news = await getNews();
 const homepage = await getEntry('home', 'portada');
@@ -16,6 +17,8 @@ const featured = homepage?.data.featured
   .map(({ story }) => storyBySlug(story))
   .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry) && entry.id !== main?.id)
   .slice(0, 2) || news.filter((entry) => entry.id !== main?.id).slice(0, 2);
+const featuredIds = new Set([main?.id, ...featured.map((entry) => entry.id)]);
+const remainingNews = news.filter((entry) => !featuredIds.has(entry.id));
 const latest = news.slice(0, 5);
 const imageFrameStyle = (entry: typeof news[number]) => `--image:url('${entry.data.image}');--image-position:${imagePosition(entry.data.imagePosition)}`;
 ---
@@ -55,20 +58,10 @@ const imageFrameStyle = (entry: typeof news[number]) => `--image:url('${entry.da
     </section>}
   </main>
   <aside class="ad ad-horizontal container"><span>PUBLICIDAD</span><strong>Espacio publicitario</strong><small>Banner responsive</small></aside>
-  <main class="container">
-    {siteSections.map((section, index) => {
-      const entries = newsForSection(news, section);
-      return <section class="section-block" id={section.toLowerCase()}>
-        <div class="section-heading"><p class="section-index">0{index + 1}</p><h2>{section}</h2><a href={sectionHref(section)}>Ver sección <span>→</span></a></div>
-        {entries.length ? <div class="section-rail">
-          {entries.map((entry) => <article class="story-card">
-            <a class="card-image image-frame" data-adaptive-image style={imageFrameStyle(entry)} href={`/noticias/${slugOf(entry)}/`}><img src={entry.data.image} alt="" loading="lazy" decoding="async" /></a>
-            <p class="eyebrow">{entry.data.primarySection}</p>
-            <h3><a href={`/noticias/${slugOf(entry)}/`}>{entry.data.title}</a></h3>
-            <time>{formatTime(entry.data.publishedAt)}</time>
-          </article>)}
-        </div> : <p class="section-rail-empty">Las próximas noticias de esta sección aparecerán acá.</p>}
-      </section>;
-    })}
+  <main class="container home-news">
+    <section aria-labelledby="todas-las-noticias">
+      <div class="section-heading"><h2 id="todas-las-noticias">Todas las noticias</h2></div>
+      {remainingNews.length ? <NewsGrid entries={remainingNews} /> : <p class="section-page-empty">No hay más noticias publicadas.</p>}
+    </section>
   </main>
 </BaseLayout>
