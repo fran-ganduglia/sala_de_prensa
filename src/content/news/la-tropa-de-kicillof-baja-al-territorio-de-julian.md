@@ -1,6 +1,6 @@
 ---
 title: "La tropa de Kicillof baja al territorio de Julián. "
-summary: Parecía que esto nunca iba a suceder, el MDF se juega a que halla PASOS
+summary: Parecía que esto nunca iba a suceder, el MDF se juega a que halla PASO
   para amar lista propia en Lanús.
 publishedAt: 2026-09-23T09:41:00-03:00
 primarySection: Política
