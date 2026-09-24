@@ -6,7 +6,7 @@ publishedAt: 2026-09-22T16:00:00-03:00
 primarySection: Política
 sections:
   - Actualidad
-image: /uploads/julian.jfif
+image: /uploads/julian-4.jpg
 imagePosition: 100% 50%
 imageCredit: ""
 ---
