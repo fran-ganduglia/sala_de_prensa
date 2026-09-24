@@ -89,10 +89,15 @@ function adaptImageFrames() {
     if (!image) return;
     const updateFrame = () => {
       if (!image.naturalWidth || !image.naturalHeight) return;
-      frame.classList.toggle('has-blurred-bands', image.naturalWidth / image.naturalHeight < 1.6);
+      frame.style.setProperty('--image-natural-width', `${image.naturalWidth}px`);
+      frame.style.setProperty('--image-natural-height', `${image.naturalHeight}px`);
+      const needsBlurredBands = image.naturalWidth / image.naturalHeight < 1.6 ||
+        (frame.hasAttribute('data-article-image') && image.naturalWidth < frame.clientWidth);
+      frame.classList.toggle('has-blurred-bands', needsBlurredBands);
     };
     if (image.complete) updateFrame();
     else image.addEventListener('load', updateFrame, { once: true });
+    if (frame.hasAttribute('data-article-image')) window.addEventListener('resize', updateFrame);
   });
 }
 

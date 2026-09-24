@@ -76,8 +76,47 @@ a { color:inherit; text-decoration:none; } button { font:inherit; cursor:pointer
 .legal-contact { border-bottom:1px solid var(--line); }
 @media (max-width:680px) { .legal-page { padding:32px 0 48px; }.legal-hero { padding-bottom:22px; }.legal-content { margin-top:26px; }.legal-intro { font-size:17px; }.legal-content section { padding:21px 0; }.legal-content h2 { font-size:21px; }.legal-content p { font-size:15px; line-height:1.65; } }
 
-/* Las fotos no panorámicas se muestran completas sobre una copia desenfocada. */
-.image-frame{isolation:isolate;overflow:hidden;position:relative;background:#e4e3df}.image-frame::before{background:var(--image) var(--image-position,50% 50%)/cover no-repeat;content:'';inset:-18px;opacity:0;position:absolute;transform:scale(1.1);transition:opacity .15s;z-index:0;filter:blur(18px)}.image-frame>img{display:block;height:100%;object-fit:cover;object-position:var(--image-position,50% 50%);position:relative;width:100%;z-index:1}.image-frame.has-blurred-bands::before{opacity:1}.image-frame.has-blurred-bands>img{object-fit:contain}
+/* Las fotos menos panorámicas se centran a tamaño natural sobre una copia difuminada. */
+.image-frame{isolation:isolate;overflow:hidden;position:relative;background:#e4e3df}.image-frame::before{background:var(--image) center/cover no-repeat;content:'';inset:-18px;opacity:0;position:absolute;transform:scale(1.1);z-index:0;filter:blur(18px)}.image-frame>img{display:block;height:100%;object-fit:cover;object-position:var(--image-position,50% 50%);position:relative;width:100%;z-index:1}.image-frame.has-blurred-bands::before{opacity:1}.image-frame.has-blurred-bands>img{height:100%;inset:0;margin:auto;max-height:var(--image-natural-height);max-width:var(--image-natural-width);object-fit:contain;object-position:center;position:absolute;width:100%}
+.article-image-frame{aspect-ratio:16/9;max-height:510px;width:100%}
+
+/* Publicidad en el lateral de Último momento. */
+.sponsor-ad{margin-top:18px}.sponsor-ad>span{color:var(--muted);display:block;font-size:9px;font-weight:700;letter-spacing:.13em;margin-bottom:8px}.sponsor-ad a,.sponsor-ad img{display:block;width:100%}.sponsor-ad a{background:#fff;border:1px solid #c8c6bf;padding:6px}.sponsor-ad a:hover,.sponsor-ad a:focus-visible{border-color:var(--red)}.sponsor-ad img{height:auto}.article-aside .sponsor-ad{margin-top:25px}
+.mobile-fontecita-ad{display:none}
+
+/* Banner de Naturaleza Viva: bajo la nota principal y al final de la portada en móvil. */
+.lead-story{display:flex;flex-direction:column}
+.lead-story>.story-image{flex-shrink:0}
+.nv-ad-desktop{margin-top:auto;padding-top:28px}
+.nv-ad-label{color:var(--muted);display:block;font-size:9px;font-weight:700;letter-spacing:.13em;margin-bottom:8px}
+.nv-banner{background:linear-gradient(125deg,#f8ffed,#e9ffc5 62%,#d3efc3);border:1px solid #77b977;border-top:5px solid #40a43c;display:flex;flex-direction:column;gap:8px;min-height:178px;overflow:hidden;padding:12px 16px;position:relative}
+.nv-banner::before{border:1px solid #ffffffa8;border-radius:50%;content:'';height:200px;position:absolute;right:-80px;top:-110px;width:200px}
+.nv-top,.nv-main{position:relative;z-index:1}
+.nv-top{align-items:center;display:flex;gap:8px;justify-content:space-between}
+.nv-kicker{color:#267748;display:block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.nv-actions{display:flex;gap:8px}
+.nv-actions a{align-items:center;background:#00463b;border:1px solid #00463b;color:#fff;display:inline-flex;font-size:11px;font-weight:700;justify-content:center;letter-spacing:.03em;min-height:44px;text-align:center;white-space:nowrap;width:120px}
+.nv-actions a:hover,.nv-actions a:focus-visible{background:#267748;border-color:#267748;color:#fff}
+.nv-main{align-items:center;display:flex;flex:1;gap:12px}
+.nv-logo{display:block;flex:none;height:100px;overflow:hidden;position:relative;width:100px}
+.nv-logo img{height:125%;left:0;object-fit:cover;object-position:left center;position:absolute;top:-12.5%;width:125%}
+.nv-title{color:#00463b;display:block;font:700 clamp(24px,2.45vw,35px)/1.08 var(--serif);letter-spacing:-.035em;min-width:0}
+.mobile-nv-ad{display:none}
+@media(max-width:680px){
+  .nv-ad-desktop,.desktop-horizontal-ad{display:none}
+  .latest-panel>.sponsor-ad{display:none}
+  .mobile-fontecita-ad{background:var(--soft);border:1px solid var(--line);display:block;margin:0 0 30px;padding:14px}
+  .mobile-fontecita-ad .sponsor-ad{margin-top:0}
+  .mobile-nv-ad{display:block;margin:24px auto 38px}
+  .nv-banner{gap:7px;min-height:156px;padding:10px 12px}
+  .nv-kicker{font-size:8px}
+  .nv-actions{gap:6px}
+  .nv-actions a{font-size:10px;min-height:42px;width:100px}
+  .nv-main{gap:9px}
+  .nv-logo{height:78px;width:78px}
+  .nv-title{font-size:clamp(20px,5.5vw,25px)}
+}
+@media(max-width:360px){.nv-kicker{font-size:7px}.nv-actions{gap:4px}.nv-actions a{font-size:9px;width:82px}}
 
 /* Navegación editorial y carriles de secciones. */
 .nav-content{gap:72px;height:60px}.nav-content a{font-size:14px;letter-spacing:.05em}.nav-content a::after{bottom:-23px}.ad-horizontal{margin:32px auto 54px}.section-rail{display:grid;grid-auto-columns:calc((100% - 48px)/3);grid-auto-flow:column;gap:24px;overflow-x:auto;padding:0 2px 12px;scroll-snap-type:x proximity}.section-rail>.story-card{min-width:0;scroll-snap-align:start}.section-rail-empty{background:var(--soft);color:var(--muted);font:16px var(--serif);margin:0;padding:24px}.section-page{padding:46px 0 72px}.section-page-header{border-bottom:3px solid var(--ink);margin-bottom:30px;padding-bottom:26px}.section-page-header h1{font:700 clamp(38px,5vw,62px)/1 var(--serif);letter-spacing:-.055em;margin:4px 0 12px}.section-page-header>p:last-child{color:var(--muted);font:16px/1.5 var(--serif);margin:0}.section-page-grid{display:grid;gap:28px;grid-template-columns:repeat(3,minmax(0,1fr))}.section-page-image{display:block;height:210px;margin-bottom:14px}.section-page-card{border-bottom:1px solid var(--line);padding-bottom:18px}.section-page-card h2{font:700 23px/1.25 var(--serif);letter-spacing:-.035em;margin:0 0 9px}.section-page-card h2 a:hover{color:var(--red)}.section-page-card>p:not(.eyebrow){color:#54544f;font:14px/1.5 var(--serif);margin:0 0 12px}.section-page-card time{color:var(--muted);font-size:9px;font-weight:700;letter-spacing:.06em}.section-page-empty{color:var(--muted);font:18px var(--serif);padding:30px 0}@media(max-width:800px){.nav-content{gap:30px}.section-rail{grid-auto-columns:calc((100% - 24px)/2)}.section-page-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:680px){.ad-horizontal{margin:25px auto 37px}.section-rail{grid-auto-columns:84%;gap:15px}.section-page{padding:30px 0 48px}.section-page-header{margin-bottom:22px;padding-bottom:18px}.section-page-header h1{font-size:40px}.section-page-grid{grid-template-columns:1fr;gap:22px}.section-page-image{height:220px}}

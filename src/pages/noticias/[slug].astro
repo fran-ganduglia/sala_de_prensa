@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
+import FontecitaAd from '../../components/FontecitaAd.astro';
 import { getNews, imagePosition, sectionHref, slugOf, formatDate, formatTime, type SiteSection } from '../../lib/news';
 
 export async function getStaticPaths() {
@@ -66,7 +67,9 @@ const imageFrameStyle = (item: typeof entry) => `--image:url('${item.data.image}
           <button type="button" data-copy-link>Copiar enlace</button>
         </div>
         {entry.data.image && <figure class="article-figure">
-          <img src={entry.data.image} style={`object-position:${imagePosition(entry.data.imagePosition)}`} alt={entry.data.imageAlt || entry.data.title} fetchpriority="high" decoding="async" />
+          <div class="article-image-frame image-frame" data-adaptive-image data-article-image style={imageFrameStyle(entry)}>
+            <img src={entry.data.image} alt={entry.data.imageAlt || entry.data.title} fetchpriority="high" decoding="async" />
+          </div>
           {entry.data.imageCredit && <figcaption>{entry.data.imageCredit}</figcaption>}
         </figure>}
         <div class="article-body"><Content /></div>
@@ -79,7 +82,7 @@ const imageFrameStyle = (item: typeof entry) => `--image:url('${item.data.image}
       </article>
       <aside class="article-aside">
         <div class="aside-latest"><p class="eyebrow">ÚLTIMO MOMENTO</p>{(await getNews()).slice(0, 3).map((item) => <a href={`/noticias/${slugOf(item)}/`}>{item.data.title}</a>)}</div>
-        <div class="ad ad-article-rail"><span>PUBLICIDAD</span><strong>Tu marca<br />puede estar acá</strong></div>
+        <FontecitaAd />
       </aside>
     </div>
     <section class="related-section">

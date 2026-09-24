@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
+import FontecitaAd from '../components/FontecitaAd.astro';
+import NaturalezaVivaAd from '../components/NaturalezaVivaAd.astro';
 import NewsGrid from '../components/NewsGrid.astro';
 import { getEntry } from 'astro:content';
 import { getNews, imagePosition, slugOf, formatTime } from '../lib/news';
@@ -42,6 +44,7 @@ const imageFrameStyle = (entry: typeof news[number]) => `--image:url('${entry.da
           {main.data.summary && <p class="lead-summary">{main.data.summary}</p>}
           <div class="story-meta"><time>{formatTime(main.data.publishedAt)}</time><span>•</span><a class="text-share" href={`/noticias/${slugOf(main)}/`}>Leer nota</a></div>
         </div>
+        <NaturalezaVivaAd className="nv-ad-desktop" />
       </article>
       <div class="secondary-stories">
         {featured.map((entry) => <article class="story-card">
@@ -55,15 +58,17 @@ const imageFrameStyle = (entry: typeof news[number]) => `--image:url('${entry.da
         <div class="panel-title"><span></span><h2>Último momento</h2></div>
         <ol>{latest.map((entry) => <li><time>{formatTime(entry.data.publishedAt)}</time><a href={`/noticias/${slugOf(entry)}/`}>{entry.data.title}</a></li>)}</ol>
         <a class="all-latest" href="/archivo/">Ver todas las noticias <span>→</span></a>
-        <aside class="ad ad-rail"><span>PUBLICIDAD</span><strong>Tu marca<br />puede estar acá</strong><small>Banner responsive</small></aside>
+        <FontecitaAd />
       </aside>
     </section>}
   </main>
-  <aside class="ad ad-horizontal container"><span>PUBLICIDAD</span><strong>Espacio publicitario</strong><small>Banner responsive</small></aside>
+  <aside class="ad ad-horizontal container desktop-horizontal-ad"><span>PUBLICIDAD</span><strong>Espacio publicitario</strong><small>Banner responsive</small></aside>
+  <div class="container mobile-nv-ad"><NaturalezaVivaAd /></div>
   <main class="container home-news">
     <section aria-labelledby="todas-las-noticias">
       <div class="section-heading"><h2 id="todas-las-noticias">Todas las noticias</h2></div>
       {featured[2] && <div class="mobile-extra-featured"><NewsGrid entries={[featured[2]]} /></div>}
+      {featured[2] && <div class="mobile-fontecita-ad"><FontecitaAd /></div>}
       {remainingNews.length ? <NewsGrid entries={remainingNews} /> : <p class="section-page-empty">No hay más noticias publicadas.</p>}
     </section>
   </main>

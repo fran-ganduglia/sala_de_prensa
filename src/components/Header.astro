@@ -4,7 +4,7 @@ import { sectionHref, siteSections } from '../lib/news';
 const { active } = Astro.props;
 ---
 <header class="site-header">
-  <div class="utility-bar"><p>ACTUALIDAD · GBA</p><a href="#contacto">Publicitá con nosotros</a></div>
+  <div class="utility-bar"><p>ACTUALIDAD · GBA</p><a href="mailto:saladeprensaok26@gmail.com">Publicitá con nosotros</a></div>
   <div class="brand-row container">
     <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-controls="mobile-menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <a class="brand" href="/"><img src="/assets/sala-de-prensa-logo-v2.png" alt="Sala de Prensa, La voz del pueblo" width="1774" height="887" fetchpriority="high" decoding="async" /></a>
@@ -12,4 +12,4 @@ const { active } = Astro.props;
   </div>
   <nav class="main-nav" aria-label="Secciones"><div class="container nav-content">{siteSections.map((section) => <a class:list={{ active: section === active }} href={sectionHref(section)}>{section}</a>)}</div></nav>
 </header>
-<nav id="mobile-menu" class="mobile-menu" aria-label="Secciones móviles" hidden>{siteSections.map((section) => <a href={sectionHref(section)}>{section}</a>)}<a href="#contacto">Publicitá con nosotros</a></nav>
+<nav id="mobile-menu" class="mobile-menu" aria-label="Secciones móviles" hidden>{siteSections.map((section) => <a href={sectionHref(section)}>{section}</a>)}<a href="mailto:saladeprensaok26@gmail.com">Publicitá con nosotros</a></nav>
