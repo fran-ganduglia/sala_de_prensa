@@ -1,0 +1,19 @@
+---
+title: "La pobreza se consolida en el Conurbano y golpea con fuerza a Lanús: más
+  del 55% de la población bajo la línea de pobreza"
+summary: Los resultados del primer semestre de 2026 correspondientes al total de
+  aglomerados urbanos registraron que el porcentaje de hogares por debajo de la
+  línea de pobreza  alcanzó el 24,4%. Dentro de estos hogares reside el 32,3% de
+  las personas. En este conjunto, hay 5,6% de hogares por debajo de la línea de
+  indigencia, que incluyen al 7,5% de las personas.
+publishedAt: 2026-09-25T11:00:00-03:00
+primarySection: Actualidad
+sections:
+  - Política
+image: /uploads/pobreza.jfif
+imagePosition: 50% 50%
+---
+Nota por: CG/Redacción Lanús Sala de Prensa
+Las estadísticas socioeconómicas suelen tener la fría propiedad de adormecer la sensibilidad pública. Nos acostumbramos a los porcentajes como si fueran accidentes climáticos inevitables y no el resultado de fracturas estructurales. Sin embargo, el último Informe de Pobreza del INDEC correspondiente al primer semestre de 2026 no permite dobles lecturas ni indiferencias: en los partidos del Gran Buenos Aires, la pobreza se consolidó en un 36,9% y la indigencia trepó al 9,9%. Detrás de esa abstracción matemática hay casi 4,9 millones de personas atrapadas en los márgenes de la subsistencia. Si la fotografía regional es alarmante, el zoom sobre el municipio de Lanús es sencillamente devastador. Informes locales y sociales independientes arrojan una cifra que debería avergonzar a toda la dirigencia: entre el 55% y el 56% de los lanusenses vive bajo la línea de pobreza. Ya no hablamos de un sector postergado; hablamos de una mayoría absoluta que no logra cubrir sus necesidades esenciales en uno de los distritos más densamente poblados de la provincia. La manifestación más cruel de este naufragio colectivo es, sin dudas, su sesgo generacional. Que el 38% de los vecinos en situación de pobreza sufra la indigencia.
+significa, en términos prácticos, que el hambre y la malnutrición se ensañan con más de la mitad de los niños, niñas y adolescentes de Lanús. Estamos hipotecando el futuro en tiempo presente. ¿Qué tipo de tramado social o productivo puede construirse a mediano plazo cuando la infancia de un municipio entero crece con el plato vacío?La raíz de este drama no es un misterio. Reside en la brutal brecha de ingresos generada por el desfasaje crónico entre los salarios y el costo de vida. Mientras la Canasta Básica Total (CBT) familiar se ubicó en $1.440.395, el ingreso medio de los hogares que no logran cubrirla apenas rozó los $922.755. Ese abismo del 35,9% es el que empuja mensualmente a las familias trabajadoras —muchas de ellas integradas al sector formal o a la densa matriz de servicios del distrito— hacia la vulnerabilidad. En la Argentina actual, tener empleo ya no es garantía de no ser pobre. Este ahogo económico se corporiza de manera brutal en el territorio, traduciéndose en una emergencia habitacional y sanitaria inocultable. Quien recorra localidades como Monte Chingolo o Valentín Alsina encontrará en barrios vulnerables como Barrio Obrero, La Torre o el postergado predio ACUBA la verdadera dimensión de la crisis. Allí, donde el hacinamiento es la norma y el acceso formal a los servicios básicos es un lujo lejano, la red de contención comunitaria y los comedores populares están desbordados. Son el último dique de contención antes del colapso absoluto.
+Lanús no es una isla, sino el reflejo potenciado de las deudas pendientes del Conurbano bonaerense. Abordar esta realidad requiere urgencia política, pero fundamentalmente honestidad intelectual. Seguir gestionando sobre la coyuntura sin transformar la infraestructura urbana ni resolver la disparidad de ingresos estructural es, lisa y llanamente, administrar la exclusión. Las cifras de 2026 están sobre la mesa; la urgencia de transformarlas en dignidad colectiva ya no puede esperar.
