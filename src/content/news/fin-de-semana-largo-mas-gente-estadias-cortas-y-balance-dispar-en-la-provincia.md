@@ -1,6 +1,6 @@
 ---
 title: Fin de semana largo, más gente, estadías cortas y balance dispar en la
-  Provincia,
+  Provincia
 summary: Mar del Plata tuvo reservas iniciales de entre el 45% y el 50%,
   mientras que Chascomús superó el 60%, con una mejora a partir de las llegadas
   de último momento.
