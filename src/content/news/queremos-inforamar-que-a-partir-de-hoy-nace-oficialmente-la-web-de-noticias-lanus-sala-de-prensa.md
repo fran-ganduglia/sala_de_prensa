@@ -1,5 +1,5 @@
 ---
-title: QUEREMOS INFORAMAR QUE A PARTIR DE HOY NACE OFICIALMENTE LA WEB DE
+title: QUEREMOS INFORMAR QUE A PARTIR DE HOY NACE OFICIALMENTE LA WEB DE
   NOTICIAS "LANUS  SALA DE PRENSA"
 summary: >-
   Tras haber cerrado un tiempo por periodo de pruebas clave para afianzar la
