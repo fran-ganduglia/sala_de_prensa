@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import FontecitaAd from '../components/FontecitaAd.astro';
 import NaturalezaVivaAd from '../components/NaturalezaVivaAd.astro';
+import OpjAd from '../components/OpjAd.astro';
 import NewsGrid from '../components/NewsGrid.astro';
 import { getEntry } from 'astro:content';
 import { getNews, imagePosition, slugOf, formatTime } from '../lib/news';
@@ -59,6 +60,7 @@ const imageFrameStyle = (entry: typeof news[number]) => `--image:url('${entry.da
         <ol>{latest.map((entry) => <li><time>{formatTime(entry.data.publishedAt)}</time><a href={`/noticias/${slugOf(entry)}/`}>{entry.data.title}</a></li>)}</ol>
         <a class="all-latest" href="/archivo/">Ver todas las noticias <span>→</span></a>
         <FontecitaAd />
+        <OpjAd />
       </aside>
     </section>}
   </main>
@@ -69,7 +71,14 @@ const imageFrameStyle = (entry: typeof news[number]) => `--image:url('${entry.da
       <div class="section-heading"><h2 id="todas-las-noticias">Todas las noticias</h2></div>
       {featured[2] && <div class="mobile-extra-featured"><NewsGrid entries={[featured[2]]} /></div>}
       {featured[2] && <div class="mobile-fontecita-ad"><FontecitaAd /></div>}
-      {remainingNews.length ? <NewsGrid entries={remainingNews} /> : <p class="section-page-empty">No hay más noticias publicadas.</p>}
+      {remainingNews.length ? <>
+        <NewsGrid entries={remainingNews.slice(0, 3)} />
+        <div class="mobile-opj-ad"><OpjAd /></div>
+        {remainingNews.length > 3 && <div class="home-news-continuation"><NewsGrid entries={remainingNews.slice(3)} /></div>}
+      </> : <>
+        <div class="mobile-opj-ad"><OpjAd /></div>
+        <p class="section-page-empty">No hay más noticias publicadas.</p>
+      </>}
     </section>
   </main>
 </BaseLayout>
