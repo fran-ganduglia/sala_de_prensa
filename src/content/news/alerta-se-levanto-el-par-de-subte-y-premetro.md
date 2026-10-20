@@ -1,5 +1,5 @@
 ---
-title: ALERTA///// SE LEVANTO EL PAR DE SUBTE Y PREMETRO
+title: ALERTA///// SE LEVANTO EL PARO DE SUBTE Y PREMETRO
 summary: >-
   Las seis líneas del subte y el premetro estuvieron interrumpidas entre las 10
   y las 16.
