@@ -1,5 +1,5 @@
 ---
-title: "PARO DE SUBTE DESDE LAS 10 DE LA MAÑANA, "
+title: PARO DE SUBTE DESDE LAS 10 DE LA MAÑANA DE HOY.
 summary: Línea A, Línea B, Línea C, Línea D, Línea E, Línea H, incluido el premetro.
 publishedAt: 2026-10-20T11:00:00-03:00
 primarySection: Actualidad
