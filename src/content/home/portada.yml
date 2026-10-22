@@ -1,11 +1,8 @@
-main: urgente-golpe-judicial-para-cfk-casacion-pateo-el-tablero-y-unifico-hotesur-y-los-sauces
+main: docentes-van-al-paro-y-advierten-que-empatarle-a-la-inflacion-es-perder
 urgent:
-  text: A partir de las 22:00 y hasta las 5:00, un centenar de líneas clave
-    bajarán drásticamente sus frecuencias, Entre las trazas afectadas se
-    encuentran líneas de alta demanda diaria como la 1, 2, 8, 9, 10, 15, 17, 22,
-    29, 37, 45, 53, 59, 60, 85, 96, 98, 100, 148, 152, 159, 160, 168 y 194
-  story: alerta-en-el-amba-el-transporte-nocturno-va-al-paro-tecnico-y-reduciran-los-colectivos-a-la-mitad
+  text: ""
+  story: ""
 featured:
-  - story: alerta-se-levanto-el-par-de-subte-y-premetro
+  - story: urgente-golpe-judicial-para-cfk-casacion-pateo-el-tablero-y-unifico-hotesur-y-los-sauces
   - story: si-macri-va-separado-de-milei-el-peronismo-gana-en-primera-vuelta-aseguro-guillermo-moreno-dirigente-peronista
-  - story: alerta-en-el-amba-el-transporte-nocturno-va-al-paro-tecnico-y-reduciran-los-colectivos-a-la-mitad
+  - story: estallo-la-furia-rural-el-campo-prepara-una-historica-e-inminente-marcha-para-frenar-el-saqueo-de-axel-kicillof
