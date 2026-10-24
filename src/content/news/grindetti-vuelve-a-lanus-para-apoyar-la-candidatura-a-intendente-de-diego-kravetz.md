@@ -9,7 +9,7 @@ summary: Néstor Grindetti, quien se había retirado momentáneamente de la
   los próximos desafíos electorales en el municipio.
 publishedAt: 2026-10-24T12:50:00-03:00
 primarySection: Actualidad
-image: /uploads/ng-y-dk.jfif
+image: /uploads/ng-y-dk-2.jfif
 imagePosition: 50% 50%
 videos:
   - type: YouTube
