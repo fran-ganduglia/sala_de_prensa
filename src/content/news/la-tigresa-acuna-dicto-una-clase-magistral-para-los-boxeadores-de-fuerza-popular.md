@@ -5,7 +5,7 @@ summary: En una actividad oficial coordinada con la federación, los jóvenes
   talentos del galpón vivieron una experiencia única de aprendizaje y guanteo
   con la leyenda del ring.
 publishedAt: 2026-10-24T23:35:00-03:00
-primarySection: Actualidad
+primarySection: Deportes
 image: /uploads/boxeo-acuna.jfif
 imagePosition: 50% 50%
 videos:
