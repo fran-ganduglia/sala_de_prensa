@@ -7,6 +7,8 @@ summary: El violento enfrentamiento ocurrió en el complejo habitacional de
   drogas. Hay extrema tensión en el barrio.
 publishedAt: 2926-10-26T09:00:00-03:00
 primarySection: Actualidad
+sections:
+  - Política
 image: /uploads/apache-1.avif
 imagePosition: 50% 50%
 videos: []
