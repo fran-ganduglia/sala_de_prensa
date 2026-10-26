@@ -1,0 +1,35 @@
+---
+import NaturalezaVivaAd from './NaturalezaVivaAd.astro';
+interface Props { className?: string; }
+const { className = '' } = Astro.props;
+const agencyUrl = 'https://www.instagram.com/agencia_salvador232?cplk=MXJtbzVyNnp5aW43dg==';
+---
+
+<section class={`advert-carousel ${className}`} data-ad-carousel tabindex="-1" aria-label="Anunciantes" aria-roledescription="carrusel">
+  <div class="advert-panel">
+  <span class="advert-label">PUBLICIDAD</span>
+  <div class="advert-window">
+  <div class="advert-slides" data-ad-track>
+    <div class="advert-slide" data-ad-slide role="group" aria-roledescription="diapositiva" aria-label="1 de 2: Naturaleza Viva">
+      <NaturalezaVivaAd />
+    </div>
+    <div class="advert-slide" data-ad-slide role="group" aria-roledescription="diapositiva" aria-label="2 de 2: Agencia Salvador" inert>
+      <div class="advert-creative">
+        <a href={agencyUrl} target="_blank" rel="noopener noreferrer" aria-label="Visitar el Instagram de Agencia Salvador 232">
+          <img src="/assets/agencia-salvador-publicidad.webp" alt="Lotería de la Provincia, Agencia Oficial Salvador N.º 232. Tu agencia de confianza. Jugá responsablemente. Prohibido para menores de 18 años." width="1600" height="836" loading="lazy" decoding="async" />
+        </a>
+      </div>
+      <div class="advert-footer">
+        <div class="advert-identity"><strong>Agencia Salvador</strong><span>Agencia oficial · N.º 232</span></div>
+        <div class="advert-links"><a href={agencyUrl} target="_blank" rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a></div>
+      </div>
+    </div>
+  </div>
+  <div class="advert-arrows" data-ad-controls hidden>
+    <button type="button" data-ad-prev aria-label="Publicidad anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6" /></svg></button>
+    <button type="button" data-ad-next aria-label="Publicidad siguiente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6" /></svg></button>
+  </div>
+  </div>
+
+  </div>
+</section>

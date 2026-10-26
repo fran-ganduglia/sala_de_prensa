@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import FontecitaAd from '../components/FontecitaAd.astro';
-import NaturalezaVivaAd from '../components/NaturalezaVivaAd.astro';
+import AdCarousel from '../components/AdCarousel.astro';
 import OpjAd from '../components/OpjAd.astro';
 import NewsGrid from '../components/NewsGrid.astro';
 import { getEntry } from 'astro:content';
@@ -45,7 +45,7 @@ const imageFrameStyle = (entry: typeof news[number]) => `--image:url('${entry.da
           {main.data.summary && <p class="lead-summary">{main.data.summary}</p>}
           <div class="story-meta"><time>{formatTime(main.data.publishedAt)}</time><span>•</span><a class="text-share" href={`/noticias/${slugOf(main)}/`}>Leer nota</a></div>
         </div>
-        <NaturalezaVivaAd className="nv-ad-desktop" />
+        <AdCarousel className="advert-desktop" />
       </article>
       <div class="secondary-stories">
         {featured.map((entry) => <article class="story-card">
@@ -64,8 +64,7 @@ const imageFrameStyle = (entry: typeof news[number]) => `--image:url('${entry.da
       </aside>
     </section>}
   </main>
-  <aside class="ad ad-horizontal container desktop-horizontal-ad"><span>PUBLICIDAD</span><strong>Espacio publicitario</strong><small>Banner responsive</small></aside>
-  <div class="container mobile-nv-ad"><NaturalezaVivaAd /></div>
+  <div class="container advert-mobile"><AdCarousel /></div>
   <main class="container home-news">
     <section aria-labelledby="todas-las-noticias">
       <div class="section-heading"><h2 id="todas-las-noticias">Todas las noticias</h2></div>

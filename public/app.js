@@ -228,3 +228,71 @@ if (toggle && mobileMenu) {
 
 const siteHeader = document.querySelector('.site-header');
 if (siteHeader) window.addEventListener('scroll', () => siteHeader.classList.toggle('scrolled', window.scrollY > 12), { passive: true });
+
+document.querySelectorAll('[data-ad-carousel]').forEach(carousel => {
+  const slides = [...carousel.querySelectorAll('[data-ad-slide]')];
+  const track = carousel.querySelector('[data-ad-track]');
+  let current = 0;
+  let hovered = false;
+  let visible = false;
+  let timer;
+
+  const schedule = () => {
+    window.clearTimeout(timer);
+    if (!hovered && visible && !document.hidden) {
+      timer = window.setTimeout(() => show(current + 1), 7000);
+    }
+  };
+  const show = index => {
+    current = (index + slides.length) % slides.length;
+    // Move focus out of the outgoing slide before making its links inert.
+    if (slides.some((slide, i) => i !== current && slide.contains(document.activeElement))) {
+      carousel.focus({ preventScroll: true });
+    }
+    track.style.transform = `translateX(-${current * 100}%)`;
+    slides.forEach((slide, i) => {
+      slide.inert = i !== current;
+    });
+    schedule();
+  };
+  carousel.querySelectorAll('[data-ad-controls]').forEach(control => { control.hidden = false; });
+  carousel.querySelector('[data-ad-prev]').addEventListener('click', () => show(current - 1));
+  carousel.querySelector('[data-ad-next]').addEventListener('click', () => show(current + 1));
+  carousel.addEventListener('pointerenter', event => {
+    if (event.pointerType !== 'mouse') return;
+    hovered = true;
+    schedule();
+  });
+  carousel.addEventListener('pointerleave', event => {
+    if (event.pointerType !== 'mouse') return;
+    hovered = false;
+    schedule();
+  });
+  let touchStart;
+  let swiped = false;
+  track.addEventListener('pointerdown', event => {
+    swiped = false;
+    if (event.pointerType === 'touch') touchStart = { x: event.clientX, y: event.clientY };
+  });
+  track.addEventListener('pointerup', event => {
+    if (event.pointerType !== 'touch' || !touchStart) return;
+    const dx = event.clientX - touchStart.x;
+    const dy = event.clientY - touchStart.y;
+    touchStart = null;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) {
+      swiped = true;
+      show(current + (dx < 0 ? 1 : -1));
+    }
+  });
+  track.addEventListener('pointercancel', () => { touchStart = null; });
+  track.addEventListener('click', event => {
+    if (!swiped) return;
+    event.preventDefault();
+    swiped = false;
+  }, true);
+  document.addEventListener('visibilitychange', schedule);
+  new IntersectionObserver(entries => {
+    visible = entries[0].isIntersecting;
+    schedule();
+  }, { threshold: 0.25 }).observe(carousel);
+});
