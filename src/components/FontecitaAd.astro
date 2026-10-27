@@ -1,6 +1,10 @@
-<div class="sponsor-ad">
+---
+interface Props { placement: string; }
+const { placement } = Astro.props;
+---
+<div class="sponsor-ad" data-sponsor-name="La Fontecita" data-sponsor-placement={placement}>
   <span>PUBLICIDAD</span>
-  <a href="https://www.instagram.com/fontecita?stkn=ZWRoOGFqd2FzcjN2" target="_blank" rel="noopener noreferrer" aria-label="Visitar el Instagram de La Fontecita">
+  <a href="https://www.instagram.com/fontecita?stkn=ZWRoOGFqd2FzcjN2" data-sponsor-link="imagen" target="_blank" rel="noopener noreferrer" aria-label="Visitar el Instagram de La Fontecita">
     <img src="/assets/la-fontecita.jpeg" alt="La Fontecita, el mejor café" width="1536" height="1024" decoding="async" />
   </a>
 </div>

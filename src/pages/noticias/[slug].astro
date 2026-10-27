@@ -82,7 +82,7 @@ const imageFrameStyle = (item: typeof entry) => `--image:url('${item.data.image}
       </article>
       <aside class="article-aside">
         <div class="aside-latest"><p class="eyebrow">ÚLTIMO MOMENTO</p>{(await getNews()).slice(0, 3).map((item) => <a href={`/noticias/${slugOf(item)}/`}>{item.data.title}</a>)}</div>
-        <FontecitaAd />
+        <FontecitaAd placement="noticia lateral" />
       </aside>
     </div>
     <GoogleAd placement="article-end" />

@@ -60,8 +60,8 @@ const imageFrameStyle = (entry: typeof news[number]) => `--image:url('${entry.da
         <div class="panel-title"><span></span><h2>Último momento</h2></div>
         <ol>{latest.map((entry) => <li><time>{formatTime(entry.data.publishedAt)}</time><a href={`/noticias/${slugOf(entry)}/`}>{entry.data.title}</a></li>)}</ol>
         <a class="all-latest" href="/archivo/">Ver todas las noticias <span>→</span></a>
-        <FontecitaAd />
-        <OpjAd />
+        <FontecitaAd placement="portada lateral" />
+        <OpjAd placement="portada lateral" />
       </aside>
     </section>}
   </main>
@@ -70,16 +70,16 @@ const imageFrameStyle = (entry: typeof news[number]) => `--image:url('${entry.da
     <section aria-labelledby="todas-las-noticias">
       <div class="section-heading"><h2 id="todas-las-noticias">Todas las noticias</h2></div>
       {featured[2] && <div class="mobile-extra-featured"><NewsGrid entries={[featured[2]]} /></div>}
-      {featured[2] && <div class="mobile-fontecita-ad"><FontecitaAd /></div>}
+      {featured[2] && <div class="mobile-fontecita-ad"><FontecitaAd placement="portada entre noticias movil" /></div>}
       {remainingNews.length ? <>
         <NewsGrid entries={remainingNews.slice(0, 3)} />
-        <div class="mobile-opj-ad"><OpjAd /></div>
+        <div class="mobile-opj-ad"><OpjAd placement="portada entre noticias movil" /></div>
         {remainingNews.length > 3 && <>
           <GoogleAd placement="home-between-news" />
           <div class="home-news-continuation"><NewsGrid entries={remainingNews.slice(3)} /></div>
         </>}
       </> : <>
-        <div class="mobile-opj-ad"><OpjAd /></div>
+        <div class="mobile-opj-ad"><OpjAd placement="portada entre noticias movil" /></div>
         <p class="section-page-empty">No hay más noticias publicadas.</p>
       </>}
     </section>
