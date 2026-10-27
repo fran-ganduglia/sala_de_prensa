@@ -1,10 +1,19 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { videoSource } from './lib/video';
 
 const video = z.object({
   type: z.enum(['Archivo propio', 'YouTube', 'Instagram']),
   url: z.string().optional(),
   caption: z.string().optional(),
+}).superRefine((video, context) => {
+  if (video.url?.trim() && !videoSource(video.url)) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ['url'],
+      message: 'Subí el video desde el CMS o usá una URL pública. Una ruta de tu computadora no publica el archivo.',
+    });
+  }
 });
 
 const news = defineCollection({

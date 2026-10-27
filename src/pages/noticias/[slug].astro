@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import FontecitaAd from '../../components/FontecitaAd.astro';
 import GoogleAd from '../../components/GoogleAd.astro';
+import ArticleVideo from '../../components/ArticleVideo.astro';
 import { getNews, imagePosition, sectionHref, slugOf, formatDate, formatTime, type SiteSection } from '../../lib/news';
 
 export async function getStaticPaths() {
@@ -78,7 +79,7 @@ const imageFrameStyle = (item: typeof entry) => `--image:url('${item.data.image}
           <p class="eyebrow">GALERÍA</p>
           <div class="gallery-grid">{entry.data.gallery.map((item) => <figure><img src={item.image} alt={item.alt || item.caption || ''} loading="lazy" decoding="async" />{item.caption && <figcaption>{item.caption}</figcaption>}</figure>)}</div>
         </section>}
-        {entry.data.videos.map((video) => video.url && <section class="article-video"><a href={video.url} target="_blank" rel="noreferrer">Ver video: {video.caption || video.type} ↗</a></section>)}
+        {entry.data.videos.map((video) => <ArticleVideo video={video} />)}
       </article>
       <aside class="article-aside">
         <div class="aside-latest"><p class="eyebrow">ÚLTIMO MOMENTO</p>{(await getNews()).slice(0, 3).map((item) => <a href={`/noticias/${slugOf(item)}/`}>{item.data.title}</a>)}</div>

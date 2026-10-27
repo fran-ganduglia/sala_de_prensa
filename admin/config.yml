@@ -65,7 +65,16 @@ collections:
         required: false
         fields:
           - { label: Tipo, name: type, widget: select, options: [Archivo propio, YouTube, Instagram] }
-          - { label: Enlace o archivo, name: url, widget: string, required: false, hint: "Pegá una URL de YouTube/Instagram o la ruta del archivo propio." }
+          - label: Archivo de video o enlace
+            name: url
+            widget: file
+            required: false
+            choose_url: true
+            hint: "Archivo propio: seleccioná o subí un video (MP4 recomendado, hasta 25 MiB). Para YouTube o Instagram, usá Insertar desde URL. No pegues una ruta de tu computadora."
+            media_library:
+              allow_multiple: false
+              config:
+                max_file_size: 26214400
           - { label: Descripción, name: caption, widget: string, required: false }
       - { label: Cuerpo de la noticia, name: body, widget: markdown, required: false, hint: "Opcional. Podés publicar una actualización breve, texto extenso o solo multimedia." }
   - name: homepage

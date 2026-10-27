@@ -19,6 +19,7 @@ export const GET: APIRoute = () => {
     "frame-ancestors 'none'",
     "form-action 'self'",
     "img-src 'self' data: blob: https:",
+    "media-src 'self' https:",
     "style-src 'self' 'unsafe-inline'",
     `script-src 'self' ${hashes} 'strict-dynamic' 'unsafe-eval' https:`,
     "connect-src 'self' https:",

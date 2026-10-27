@@ -151,8 +151,15 @@
             }, this))
           ),
           videos.filter(function (video) { return video.url; }).map(function (video, index) {
+            if (video.type === 'Archivo propio') {
+              var source = assetUrl(this, video.url);
+              return h('figure', { className: 'preview-uploaded-video', key: index },
+                source && h('video', { src: source, controls: true, playsInline: true, preload: 'metadata', 'aria-label': video.caption || 'Video de la noticia' }),
+                video.caption && h('figcaption', {}, video.caption)
+              );
+            }
             return h('p', { className: 'preview-video', key: index }, '▶ ', video.caption || video.type || 'Video');
-          })
+          }, this)
         )
       );
     }

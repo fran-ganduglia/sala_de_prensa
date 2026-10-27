@@ -1,0 +1,24 @@
+---
+import { videoSource } from '../lib/video';
+
+interface Props {
+  video: {
+    type: 'Archivo propio' | 'YouTube' | 'Instagram';
+    url?: string;
+    caption?: string;
+  };
+}
+
+const { video } = Astro.props;
+const source = videoSource(video.url);
+---
+
+{source && (video.type === 'Archivo propio' ? <figure class="article-uploaded-video">
+  <video controls playsinline preload="metadata" aria-label={video.caption || 'Video de la noticia'}>
+    <source src={source} />
+    Tu navegador no puede reproducir este video. <a href={source}>Abrir el archivo de video</a>.
+  </video>
+  {video.caption && <figcaption>{video.caption}</figcaption>}
+</figure> : <section class="article-external-video">
+  <a href={source} target="_blank" rel="noopener noreferrer">Ver video en {video.type}: {video.caption || 'Abrir video'} ↗</a>
+</section>)}
