@@ -19,4 +19,9 @@ export const appScript = `(function () {
   var script = document.createElement('script');
   script.src = '/app.js';
   document.body.appendChild(script);
+  if (document.querySelector('ins[data-manual-ad]')) {
+    var ads = document.createElement('script');
+    ads.src = '/display-ads.js';
+    document.body.appendChild(ads);
+  }
 })();`;

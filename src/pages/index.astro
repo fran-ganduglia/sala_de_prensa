@@ -5,6 +5,7 @@ import FontecitaAd from '../components/FontecitaAd.astro';
 import AdCarousel from '../components/AdCarousel.astro';
 import OpjAd from '../components/OpjAd.astro';
 import NewsGrid from '../components/NewsGrid.astro';
+import GoogleAd from '../components/GoogleAd.astro';
 import { getEntry } from 'astro:content';
 import { getNews, imagePosition, slugOf, formatTime } from '../lib/news';
 
@@ -73,7 +74,10 @@ const imageFrameStyle = (entry: typeof news[number]) => `--image:url('${entry.da
       {remainingNews.length ? <>
         <NewsGrid entries={remainingNews.slice(0, 3)} />
         <div class="mobile-opj-ad"><OpjAd /></div>
-        {remainingNews.length > 3 && <div class="home-news-continuation"><NewsGrid entries={remainingNews.slice(3)} /></div>}
+        {remainingNews.length > 3 && <>
+          <GoogleAd placement="home-between-news" />
+          <div class="home-news-continuation"><NewsGrid entries={remainingNews.slice(3)} /></div>
+        </>}
       </> : <>
         <div class="mobile-opj-ad"><OpjAd /></div>
         <p class="section-page-empty">No hay más noticias publicadas.</p>

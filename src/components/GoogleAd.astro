@@ -1,0 +1,20 @@
+---
+interface Props {
+  placement: 'home-between-news' | 'article-end';
+}
+
+const { placement } = Astro.props;
+---
+
+<aside class="google-ad" aria-label="Publicidad" data-ad-placement={placement}>
+  <span class="google-ad-label">PUBLICIDAD</span>
+  <ins
+    class="adsbygoogle"
+    style="display:block"
+    data-ad-client="ca-pub-6812754349304538"
+    data-ad-slot="3710980376"
+    data-ad-format="auto"
+    data-full-width-responsive="true"
+    data-manual-ad
+  />
+</aside>
