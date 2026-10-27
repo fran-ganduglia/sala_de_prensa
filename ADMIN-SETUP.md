@@ -10,6 +10,29 @@ El directorio `admin/` se publica como un segundo sitio de Netlify desde el mism
 
 Cuando exista el dominio, el panel puede usar `admin.lanusaladeprensa.com`. Hasta entonces, Netlify asignará una URL temporal.
 
+## Optimización automática de fotos
+
+El panel usa Decap CMS 3.17.3, con procesamiento nativo de imágenes activado.
+Las nuevas cargas JPEG (incluidos JFIF con MIME JPEG), PNG y WebP se convierten
+a WebP con calidad 82 antes de guardarse en GitHub. Se quitan metadatos y se
+conservan las dimensiones y proporciones, sin recortar ni agrandar imágenes.
+El procesamiento se aplica a las cargas de la biblioteca, imagen principal,
+galerías e imágenes insertadas en el cuerpo de la noticia.
+
+La referencia se actualiza automáticamente a la extensión `.webp`. Solo se
+sube la versión procesada; el archivo del equipo del editor no se modifica.
+El resultado depende de la imagen y no garantiza un tamaño fijo en KB.
+
+Las imágenes ya publicadas, los enlaces externos y los archivos seleccionados
+de la biblioteca existente no se reprocesan. GIF, SVG y otros formatos no
+admitidos se conservan, y los videos no se transforman. No se fija un ancho
+porque la implementación nativa fuerza el tamaño y puede agrandar fotos
+pequeñas; un límite de lado mayor requeriría procesamiento adicional.
+
+El compresor WebP de Decap carga recursos desde `unpkg.com`; la política CSP
+del panel permite esa conexión. La vista previa personalizada sigue registrada
+mediante las funciones globales de Decap.
+
 ## Subir videos
 
 En Noticias → Videos, agregá un elemento y elegí **Archivo propio**. En

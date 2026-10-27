@@ -13,6 +13,15 @@ slug:
   sanitize_replacement: "-"
 media_folder: public/uploads
 public_folder: /uploads
+# Compress new uploads in the browser. Omit dimensions to avoid upscaling
+# small photos or cropping their original proportions.
+media_processing:
+  enabled: true
+  format:
+    enabled: true
+    default: webp
+  quality: 82
+  strip_metadata: true
 editor:
   preview: true
 collections:
@@ -32,7 +41,7 @@ collections:
       - { label: Sección principal, name: primarySection, widget: select, default: Actualidad, options: [Actualidad, Política, Deportes, Cultura], hint: "Define la categoría y la página de sección donde aparecerá la noticia." }
       - { label: Otras secciones, name: sections, widget: select, multiple: true, required: false, options: [Actualidad, Política, Deportes, Cultura], hint: "Una noticia puede aparecer en más de una sección." }
       - { label: Etiquetas, name: tags, widget: list, required: false, hint: "Opcional. Sirven para búsqueda y recomendaciones." }
-      - { label: Imagen principal, name: image, widget: image, required: false, choose_url: true }
+      - { label: Imagen principal, name: image, widget: image, required: false, choose_url: true, hint: "Las nuevas fotos JPEG, PNG y WebP se optimizan automáticamente al subirlas, sin recortar ni cambiar sus dimensiones. Las imágenes pegadas desde una URL se mantienen como están." }
       - { label: Texto alternativo de imagen, name: imageAlt, widget: string, required: false, hint: "Describí lo importante de la imagen para personas que no pueden verla. Si es decorativa, dejalo vacío." }
       - label: Encuadre en portada
         name: imagePosition
@@ -56,7 +65,7 @@ collections:
         widget: list
         required: false
         fields:
-          - { label: Imagen, name: image, widget: image, choose_url: true }
+          - { label: Imagen, name: image, widget: image, choose_url: true, hint: "Optimización automática de nuevas fotos JPEG, PNG y WebP al subirlas." }
           - { label: Texto alternativo, name: alt, widget: string, required: false }
           - { label: Epígrafe, name: caption, widget: string, required: false }
       - label: Videos
