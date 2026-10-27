@@ -5,7 +5,7 @@ summary: A través de una línea de denuncias por WhatsApp, un habitante de Mont
   soluciones inmediatas por parte del Municipio.
 publishedAt: 2026-10-28T09:03:00-03:00
 primarySection: Actualidad
-image: blob:https://admin.lanusaladeprensa.com/e23623e4-0846-4585-8262-accb3826e307
+image: /uploads/basura.webp
 imagePosition: 50% 50%
 ---
 PUBLICACION DE LA DENUNCIA
