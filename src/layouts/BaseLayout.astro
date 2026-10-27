@@ -1,5 +1,6 @@
 ---
 import Footer from '../components/Footer.astro';
+import { appScript, integrationsScript } from '../lib/site-scripts';
 
 interface Props {
   title?: string;
@@ -54,8 +55,8 @@ const schemas = [organizationSchema, ...(article ? [article] : []), ...structure
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     {import.meta.env.PROD && <>
-      <script is:inline src="/analytics.js"></script>
-      <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-ZSX50KY090"></script>
+      <meta name="google-adsense-account" content="ca-pub-6812754349304538" />
+      <script is:inline set:html={integrationsScript} />
     </>}
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
@@ -84,6 +85,6 @@ const schemas = [organizationSchema, ...(article ? [article] : []), ...structure
   <body>
     <slot />
     <Footer />
-    <script is:inline src="/app.js"></script>
+    <script is:inline set:html={appScript} />
   </body>
 </html>
