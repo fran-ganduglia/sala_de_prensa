@@ -7,7 +7,7 @@ summary: El exintendente cuestionó con dureza la gestión local de Unión por l
   gobierno.
 publishedAt: 2026-10-28T20:08:00-03:00
 primarySection: Actualidad
-image: /uploads/ng.webp
+image: /uploads/ng2.webp
 imagePosition: 50% 50%
 ---
 
