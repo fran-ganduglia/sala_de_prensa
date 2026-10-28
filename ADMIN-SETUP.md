@@ -33,6 +33,31 @@ El compresor WebP de Decap carga recursos desde `unpkg.com`; la política CSP
 del panel permite esa conexión. La vista previa personalizada sigue registrada
 mediante las funciones globales de Decap.
 
+### Corrección de miniaturas y vista previa
+
+El panel carga una copia local de Decap 3.17.3 en `admin/vendor/decap-cms.js`,
+con una corrección del resolver compartido de archivos. Decap considera
+`/uploads/...` una URL absoluta y omite el archivo temporal guardado bajo
+`public/uploads/...`; esto produce imágenes rotas antes de publicar
+([reporte upstream](https://github.com/decaporg/decap-cms/issues/7639)).
+La corrección consulta primero ese archivo temporal, incluso si existe una
+URL publicada en caché. Los archivos publicados se resuelven contra `site_url`,
+porque el panel y el diario se alojan en sitios diferentes. Las referencias
+guardadas en las noticias siguen siendo `/uploads/...`.
+
+Para regenerar la copia corregida, descargá el bundle original de
+`https://unpkg.com/decap-cms@3.17.3/dist/decap-cms.js` y ejecutá
+`node scripts/patch-decap-media.mjs /ruta/al/decap-cms.js`.
+El script verifica el SHA-256 original y falla si cambia la versión.
+Conservá `admin/vendor/decap-cms.js.LICENSE.txt` junto al bundle.
+Los chunks del compresor siguen cargándose desde la versión fijada en unpkg.
+Verificación: `node --test scripts/decap-media.test.mjs`.
+
+Después de desplegar el panel, recargalo y verificá una carga nueva en imagen
+principal, galería y cuerpo de la nota antes de guardar. Esta comprobación en
+el panel autenticado también permite distinguir un problema de rutas de un
+archivo realmente dañado o un error de permisos al guardar en Git Gateway.
+
 ## Subir videos
 
 En Noticias → Videos, agregá un elemento y elegí **Archivo propio**. En
