@@ -1,6 +1,6 @@
 ---
 title: "Alerta en el sector productivo: el 43,5% de las pymes teme tener que
-  cerrar sus puertas"
+  cerrar sus puertas."
 summary: Un informe de APYME y la UNPAZ revela el fuerte impacto de la crisis en
   las pequeñas y medianas empresas. El 75,6% rechaza el rumbo económico actual y
   el 34% ya se vio obligado a reducir su personal por la caída de las ventas.
