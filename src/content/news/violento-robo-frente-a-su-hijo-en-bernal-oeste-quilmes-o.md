@@ -1,5 +1,5 @@
 ---
-title: " Violento robo frente a su hijo, en Bernal oeste, Quilmes.O"
+title: " Violento robo frente a su hijo, en Bernal oeste, Quilmes."
 summary: Un nuevo episodio de inseguridad quedó registrado en video en Bernal
   Oeste, partido de Quilmes. Las imágenes muestran momentos de extrema tensión
   durante un hecho delictivo ocurrido frente a un menor de edad.
