@@ -1,5 +1,5 @@
 ---
-title: La encrucijada de Julián Álvarez en Lanús entre la asfixia impositiva, la
+title: El rompecabeza de Julián Álvarez en Lanús entre la asfixia impositiva, la
   crisis de gestión y la fractura peronista.
 summary: >-
   EDITORIAL DE LANUS SALA DE PRENSA.
