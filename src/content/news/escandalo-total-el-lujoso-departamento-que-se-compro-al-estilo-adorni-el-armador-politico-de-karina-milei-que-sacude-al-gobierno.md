@@ -1,10 +1,9 @@
 ---
 title: ¡ESCÁNDALO TOTAL/// El lujoso departamento que se compro al estilo
   "Adorni" el armador politico de Karina Milei que sacude al Gobierno.
-summary: 'Según el articulo de la Revista Noticias, Sebastián Pareja Diputado
-  Nacional y armador politico de la Provincia de Buenos aires de Karina Milei,
-  tiene cuentas bancarias no declaradas y la compra de un departamento en Puerto
-  Madero al estilo "Adorni". '
+summary: 'Según el informe de la Revista Noticias, Sebastián Pareja Diputado
+  Nacional y armador politico de la Provincia de Buenos Aires de Karina Milei,
+  realizo la compra de un departamento en Puerto Madero al estilo "Adorni". '
 publishedAt: 2026-10-05T13:30:00-03:00
 primarySection: Actualidad
 image: /uploads/pareja-2.webp
