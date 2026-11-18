@@ -4,7 +4,7 @@ title: "Cumbre de fuego en el PJ: Kicillof busca blindar las PASO y la
 summary: El Consejo Provincial se reunirá el miércoles en La Plata con agenda
   abierta, pero cruzado por la definición del sistema electoral 2027. La presión
   de los alcaldes bonaerenses y el mensaje federal del Gobernador.
-publishedAt: 2926-10-02T11:00:00-03:00
+publishedAt: 2026-10-02T11:00:00-03:00
 primarySection: Política
 image: /uploads/congreso-pj.webp
 imagePosition: 50% 50%
