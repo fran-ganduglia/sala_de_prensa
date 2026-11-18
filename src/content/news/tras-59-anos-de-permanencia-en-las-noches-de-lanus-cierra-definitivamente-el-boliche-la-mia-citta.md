@@ -4,7 +4,7 @@ title: Tras 59 años de permanencia en las noches de Lanús, cierra
 summary: El histórico templo para mayores de 30 años se despedirá
   definitivamente de la noche de Lanús el sábado 14 de noviembre, coincidiendo
   exactamente con la fiesta de su 59° aniversario.
-publishedAt: 2926-10-29T11:00:00-03:00
+publishedAt: 2026-10-29T11:00:00-03:00
 primarySection: Actualidad
 image: /uploads/cita.webp
 imagePosition: 50% 50%
