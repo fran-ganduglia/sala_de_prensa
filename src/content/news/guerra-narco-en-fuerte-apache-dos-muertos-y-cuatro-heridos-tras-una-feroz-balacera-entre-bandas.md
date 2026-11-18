@@ -5,7 +5,7 @@ summary: El violento enfrentamiento ocurrió en el complejo habitacional de
   Ciudadela durante la madrugada del sábado. Los investigadores apuntan a una
   disputa territorial entre facciones rivales por el control de la venta de
   drogas. Hay extrema tensión en el barrio.
-publishedAt: 2926-10-26T09:00:00-03:00
+publishedAt: 2026-10-26T09:00:00-03:00
 primarySection: Actualidad
 sections:
   - Política
