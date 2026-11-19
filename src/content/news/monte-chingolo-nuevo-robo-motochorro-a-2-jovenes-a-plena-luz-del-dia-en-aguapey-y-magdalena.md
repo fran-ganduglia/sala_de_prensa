@@ -1,6 +1,6 @@
 ---
-title: MONTE CHINGOLO- NUEVO ROBO MOTOCHORRO A 2 JOVENES A PLENA LUZ DEL DÍA EN
-  AGUAPEY Y MAGDALENA.
+title: MONTE CHINGOLO/// Nuevo robo de motochorros a 2 jóvenes a plena luz del
+  día en aguapey y magdalena..
 summary: "Siguen los robos en Monte chingolo, los vecinos están cansado de no
   ser escuchados, la inacción del gobernó de Julián Álvarez ya altera la vida de
   los Chingoleases. "
