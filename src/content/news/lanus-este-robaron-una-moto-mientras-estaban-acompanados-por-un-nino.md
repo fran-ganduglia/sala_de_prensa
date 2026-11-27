@@ -6,7 +6,7 @@ publishedAt: 2026-11-26T11:30:00-03:00
 primarySection: Actualidad
 sections:
   - Actualidad
-image: /uploads/patrullero-7.webp
+image: /uploads/policia-de-la-bonaerense.webp
 imagePosition: 50% 50%
 videos:
   - type: Archivo propio
